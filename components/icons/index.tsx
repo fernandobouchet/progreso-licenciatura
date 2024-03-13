@@ -1,9 +1,36 @@
-import { User, Settings, LogOut, LucideProps } from 'lucide-react';
+import {
+  Cpu,
+  User,
+  Settings,
+  LogOut,
+  LucideProps,
+  Sun,
+  Moon,
+  Menu,
+  Home,
+  GraduationCap,
+  TerminalSquare,
+  Laptop2,
+  Gamepad,
+  Server,
+  Star,
+} from 'lucide-react';
 
 export const Icons = {
+  cpu: Cpu,
   logout: LogOut,
   settings: Settings,
   user: User,
+  sun: Sun,
+  moon: Moon,
+  menu: Menu,
+  home: Home,
+  graduation: GraduationCap,
+  computer: Laptop2,
+  server: Server,
+  star: Star,
+  terminal: TerminalSquare,
+  gamepad: Gamepad,
   googleIcon: (props: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -12,9 +12,14 @@ import { Icons } from '@/components/icons';
 import Link from 'next/link';
 import { LogoutButton } from '@/components/auth/logoutButton';
 import { getServerAuthSession } from '@/lib/auth';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export async function AvatarMenu() {
   const session = await getServerAuthSession();
+
+  if (!session) {
+    return <Skeleton className="h-8 w-8 rounded-full" />;
+  }
 
   return (
     <DropdownMenu>

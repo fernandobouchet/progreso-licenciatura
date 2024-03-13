@@ -4,7 +4,7 @@ import { ThemeProvider } from '@/providers/ThemeProvider';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { TRPCReactProvider } from '@/trpc/react';
-import Navbar from '@/components/navbar';
+import { Navigation } from '@/components/navigation/navigation';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -36,8 +36,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TRPCReactProvider>
-            <Navbar />
-            {children}
+            <Navigation>{children}</Navigation>
           </TRPCReactProvider>
         </ThemeProvider>
       </body>
