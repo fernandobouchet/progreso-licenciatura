@@ -28,6 +28,8 @@ const config = {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        'background-secondary': 'hsl(var(--background-secondary))',
+        'foreground-secondary': 'hsl(var(--foreground-secondary))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
@@ -56,7 +58,24 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
+        },
+        caution: {
+          DEFAULT: 'hsl(var(--caution))',
+          foreground: 'hsl(var(--caution-foreground))',
+        },
+        default: {
+          DEFAULT: 'hsl(var(--default))',
+          foreground: 'hsl(var(--default-foreground))',
+        },
+        info: {
+          DEFAULT: 'hsl(var(--info))',
+          foreground: 'hsl(var(--info-foreground))',
+        },
       },
+
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -75,6 +94,12 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      width: {
+        screen: '100dvw',
+      },
+      height: {
+        screen: '100dvh',
       },
     },
   },
