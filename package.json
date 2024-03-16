@@ -8,8 +8,14 @@
     "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint",
-    "db-push": "dotenv -e .env.local npx prisma db push",
-    "migrate-dev": "dotenv -e .env.local npx prisma migrate dev"
+    "db-push": "dotenv -e .env.local prisma db push",
+    "migrate-dev": "dotenv -e .env.local prisma migrate dev",
+    "migrate-reset": "dotenv -e .env.local prisma migrate reset",
+    "db-seed": "dotenv -e .env.local prisma db seed",
+    "db-studio": "dotenv -e .env.local prisma studio"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.5.0",
