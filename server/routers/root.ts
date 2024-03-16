@@ -1,6 +1,7 @@
 import { createCallerFactory, createTRPCRouter } from '@/server/trpc';
 import { usersRouter } from '@/server/routers/users';
 import { careersRouter } from '@/server/routers/careers';
+import { coursesRouter } from '@/server/routers/courses';
 
 /**
  * This is the primary router for your server.
@@ -9,6 +10,7 @@ import { careersRouter } from '@/server/routers/careers';
  */
 export const appRouter = createTRPCRouter({
   careers: careersRouter,
+  courses: coursesRouter,
   user: usersRouter,
 });
 
