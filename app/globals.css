@@ -116,4 +116,10 @@
   .page-container {
     @apply bg-background w-full flex flex-col items-center h-full rounded-3xl p-3 py-8 lg:p-8 overflow-y-auto;
   }
+  .title {
+    @apply text-2xl lg:text-3xl font-medium;
+  }
+  .subtitle {
+    @apply text-lg lg:text-xl font-medium pb-2;
+  }
 }

@@ -1,4 +1,4 @@
 const CreditosPage = () => {
-  return <div>CreditosPage</div>;
+  return <h1 className="title">Créditos</h1>;
 };
 export default CreditosPage;
