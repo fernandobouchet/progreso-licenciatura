@@ -1,4 +1,5 @@
 import { PeriodsTab } from '@/components/careerPages/periodsTab';
+import { Divider } from '@/components/ui/divider';
 import { api } from '@/trpc/server';
 
 interface Props {
@@ -27,6 +28,7 @@ const CareerData = async ({ careerId }: Props) => {
 
   return (
     <div className="flex flex-col items-center w-full">
+      <Divider />
       <h2 className="subtitle">
         {careerData.id === 1 ? 'Año' : 'Cuatrimestre'}
       </h2>

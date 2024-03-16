@@ -1,3 +1,4 @@
+import { Divider } from '@/components/ui/divider';
 import BackButton from '@/components/coursePages/backButton';
 
 interface Props {
@@ -16,6 +17,7 @@ const CoursePageContainer = ({ course }: Props) => {
   return (
     <>
       <h1 className="title">{course.name}</h1>
+      <Divider />
       <div className="flex flex-col items-center w-full h-screen">
         <div>
           <p>{course.area}</p>
