@@ -3,6 +3,7 @@ import { Inter as FontSans } from 'next/font/google';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { TRPCReactProvider } from '@/trpc/react';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -33,7 +34,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <TRPCReactProvider>{children}</TRPCReactProvider>
         </ThemeProvider>
       </body>
     </html>
