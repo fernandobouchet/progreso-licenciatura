@@ -5,7 +5,7 @@ enum CourseStatus {
   APROBADA = 'APROBADA',
 }
 
-type careerData = {
+type CareerData = {
   name: string;
   id: number;
   periods: {

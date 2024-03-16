@@ -1,5 +1,6 @@
 import { PeriodsTab } from '@/components/careerPages/periodsTab';
 import { Divider } from '@/components/ui/divider';
+import { getServerAuthSession } from '@/lib/auth';
 import { api } from '@/trpc/server';
 
 interface Props {
@@ -7,7 +8,14 @@ interface Props {
 }
 
 const CareerData = async ({ careerId }: Props) => {
-  const careerData = await api.careers.getById({ id: careerId });
+  const session = await getServerAuthSession();
+  let careerData: CareerData;
+
+  if (session) {
+    careerData = await api.careers.getByIdWithUser({ id: careerId });
+  } else {
+    careerData = await api.careers.getById({ id: careerId });
+  }
 
   if (!careerData) {
     return (
