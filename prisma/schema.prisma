@@ -14,42 +14,110 @@ datasource db {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(USER)
+  accounts      Account[]
+  sessions      Session[]
+  courses       UserCourse[]
+  careers       UserCareer[]
 }
 
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String?
-    access_token      String?
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String?
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Career {
+  id      Int      @id
+  name    String
+  periods Period[]
+  users   UserCareer[]
+
+@@unique([name])
+}
+
+model Period {
+  id         Int     @id
+  order      Int
+  careerID   Int
+  courses    Course[]
+  career     Career  @relation(fields: [careerID], references: [id], onDelete: Cascade)
+
+  @@unique([order, careerID])
+}
+
+model Course {
+  id              Int      @id
+  order           Int
+  name            String
+  area            String?
+  description     String?
+  hsWeekly        Int?
+  hsTotal         Int?
+  hasCorrelatives Boolean  @default(false)
+  hasOptatives    Boolean  @default(false)
+  hasEquivalents  Boolean  @default(false)
+  progress        UserCourse[]
+  periods         Period[]
+
+  @@unique([name])
+}
+
+model UserCourse {
+  id               String       @id @default(cuid())
+  courseId         Int
+  userId           String
+  qualification    Int?
+  status           CourseStatus @default(PENDIENTE)
+  course           Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, userId])
+}
+
+model UserCareer {
+  id         String   @id @default(cuid())
+  careerId   Int
+  userId     String
+  career     Career   @relation(fields: [careerId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([ careerId, userId])
 }
 
 enum Role {
   ADMIN
   USER
+}
+
+enum CourseStatus {
+  CURSANDO
+  PENDIENTE
+  REGULARIZADA
+  APROBADA
 }
