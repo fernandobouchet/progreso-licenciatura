@@ -1,10 +1,10 @@
-import CareerData from '@/components/careerPages/careerData';
+import { CareerPageContainer } from '@/components/careerPages/careerPageContainer';
 
 const LicenciaturaPage = () => {
   return (
     <>
       <h1 className="title">Licenciatura en informática</h1>
-      <CareerData careerId={1} />
+      <CareerPageContainer careerId={1} />
     </>
   );
 };

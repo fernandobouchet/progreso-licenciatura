@@ -1,10 +1,10 @@
-import CareerData from '@/components/careerPages/careerData';
+import { CareerPageContainer } from '@/components/careerPages/careerPageContainer';
 
 const VideojuegosPage = () => {
   return (
     <>
       <h1 className="title">Tecnicatura en videojuegos</h1>
-      <CareerData careerId={6} />
+      <CareerPageContainer careerId={6} />
     </>
   );
 };

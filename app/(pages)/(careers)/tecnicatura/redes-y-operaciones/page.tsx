@@ -1,10 +1,10 @@
-import CareerData from '@/components/careerPages/careerData';
+import { CareerPageContainer } from '@/components/careerPages/careerPageContainer';
 
 const RedesYOperacionesPage = () => {
   return (
     <>
       <h1 className="title">Tecnicatura en redes y operaciones</h1>
-      <CareerData careerId={4} />
+      <CareerPageContainer careerId={4} />
     </>
   );
 };

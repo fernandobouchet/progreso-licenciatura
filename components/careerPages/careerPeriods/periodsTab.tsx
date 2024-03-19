@@ -1,9 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CourseCard } from '@/components/careerPages/courseCard';
 import { formatPeriodOrder } from '@/lib/functions';
+import { CourseCardTrigger } from '@/components/careerPages/careerCourses/courseCardTrigger';
 
 interface Props {
-  career: careerData | null;
+  career: CareerData | null;
 }
 
 const PeriodsTab = ({ career }: Props) => {
@@ -24,7 +24,7 @@ const PeriodsTab = ({ career }: Props) => {
         <TabsContent key={period.id} value={period.order.toString()}>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5">
             {period.courses.map((course) => (
-              <CourseCard key={course.id} course={course} />
+              <CourseCardTrigger key={course.id} course={course} />
             ))}
           </div>
         </TabsContent>

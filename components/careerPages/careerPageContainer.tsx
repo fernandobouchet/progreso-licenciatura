@@ -1,4 +1,4 @@
-import { PeriodsTab } from '@/components/careerPages/periodsTab';
+import { PeriodsTab } from '@/components/careerPages/careerPeriods/periodsTab';
 import { Divider } from '@/components/ui/divider';
 import { getServerAuthSession } from '@/lib/auth';
 import { api } from '@/trpc/server';
@@ -7,7 +7,7 @@ interface Props {
   careerId: number;
 }
 
-const CareerData = async ({ careerId }: Props) => {
+const CareerPageContainer = async ({ careerId }: Props) => {
   const session = await getServerAuthSession();
   let careerData: CareerData;
 
@@ -45,4 +45,4 @@ const CareerData = async ({ careerId }: Props) => {
   );
 };
 
-export default CareerData;
+export { CareerPageContainer };
