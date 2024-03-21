@@ -7,9 +7,10 @@ import { CourseCardForm } from '@/components/careerPages/careerCourses/coursesFo
 
 interface Props {
   course: careerDataCourse;
+  careerId: number;
 }
 
-const CourseCardTrigger = ({ course }: Props) => {
+const CourseCardTrigger = ({ course, careerId }: Props) => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   if (isDesktop) {
@@ -18,7 +19,7 @@ const CourseCardTrigger = ({ course }: Props) => {
         <DialogTrigger>
           <CourseCard course={course} />
         </DialogTrigger>
-        <CourseCardForm course={course} />
+        <CourseCardForm course={course} careerId={careerId} />
       </Dialog>
     );
   }
@@ -28,7 +29,7 @@ const CourseCardTrigger = ({ course }: Props) => {
       <DrawerTrigger>
         <CourseCard course={course} />
       </DrawerTrigger>
-      <CourseCardForm course={course} />
+      <CourseCardForm course={course} careerId={careerId} />
     </Drawer>
   );
 };

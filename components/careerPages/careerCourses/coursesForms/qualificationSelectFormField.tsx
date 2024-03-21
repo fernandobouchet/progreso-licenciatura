@@ -45,7 +45,7 @@ const QualificationSelectFormField = ({ form, course }: Props) => {
             }
           >
             <FormControl className="border-none bg-accent hover:bg-accent/80">
-              <SelectTrigger>
+              <SelectTrigger className="text-left">
                 <SelectValue placeholder="Aún sin calificar" />
               </SelectTrigger>
             </FormControl>

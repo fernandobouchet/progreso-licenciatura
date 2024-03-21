@@ -22,6 +22,7 @@ import { CourseStatus } from '@prisma/client';
 
 type Props = {
   course: careerDataCourse;
+  careerId: number;
 };
 
 export const FormSchema = z.object({
@@ -29,7 +30,7 @@ export const FormSchema = z.object({
   qualification: z.coerce.number().min(0).max(10).nullable(),
 });
 
-const CourseCardForm = ({ course }: Props) => {
+const CourseCardForm = ({ course, careerId }: Props) => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const currentStatus = course?.progress?.length
@@ -72,7 +73,7 @@ const CourseCardForm = ({ course }: Props) => {
           </DialogDescription>
         </DialogHeader>
         <div className="flex">
-          <CourseForm form={form} course={course} />
+          <CourseForm form={form} course={course} careerId={careerId} />
         </div>
       </DialogContent>
     );
@@ -101,7 +102,7 @@ const CourseCardForm = ({ course }: Props) => {
         </DrawerDescription>
       </DrawerHeader>
       <div className="flex py-4">
-        <CourseForm form={form} course={course} />
+        <CourseForm form={form} course={course} careerId={careerId} />
       </div>
     </DrawerContent>
   );

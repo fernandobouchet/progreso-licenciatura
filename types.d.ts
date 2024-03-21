@@ -18,10 +18,15 @@ type CareerData = {
 type careerDataCourse = {
   id: number;
   name: string;
-  progress?: {
-    status: keyof typeof CourseStatus;
-    qualification: number | null;
-  }[];
+  progress?:
+    | {
+        id: string;
+        courseId: number;
+        userId: string;
+        status: keyof typeof CourseStatus;
+        qualification: number | null;
+      }[]
+    | undefined;
 };
 
 type Course = {

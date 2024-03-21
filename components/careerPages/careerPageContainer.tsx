@@ -9,7 +9,7 @@ interface Props {
 
 const CareerPageContainer = async ({ careerId }: Props) => {
   const session = await getServerAuthSession();
-  let careerData: CareerData;
+  let careerData: CareerData | null = null;
 
   if (session) {
     careerData = await api.careers.getByIdWithUser({ id: careerId });
@@ -40,7 +40,7 @@ const CareerPageContainer = async ({ careerId }: Props) => {
       <h2 className="subtitle">
         {careerData.id === 1 ? 'Año' : 'Cuatrimestre'}
       </h2>
-      <PeriodsTab career={careerData} />
+      <PeriodsTab career={careerData} session={session} />
     </div>
   );
 };
