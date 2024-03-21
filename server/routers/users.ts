@@ -12,8 +12,7 @@ export const usersRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input: { courseId, status, qualification }, ctx }) => {
-      const userId = ctx.session?.user.id;
-      if (!userId) return;
+      const userId = ctx.session.user.id;
       const existingCourse = await ctx.db.userCourse.findUnique({
         where: {
           courseId_userId: {

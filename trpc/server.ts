@@ -2,7 +2,7 @@ import 'server-only';
 
 import { headers } from 'next/headers';
 import { cache } from 'react';
-import { createCaller } from '@/server/routers/root';
+import { createCaller } from '@/server/root';
 import { createTRPCContext } from '@/server/trpc';
 
 /**
