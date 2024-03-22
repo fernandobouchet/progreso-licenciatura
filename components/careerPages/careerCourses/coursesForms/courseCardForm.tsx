@@ -21,7 +21,7 @@ import { CourseForm } from '@/components/careerPages/careerCourses/coursesForms/
 import { CourseStatus } from '@prisma/client';
 
 type Props = {
-  course: careerDataCourse;
+  course: CourseData;
   careerId: number;
 };
 

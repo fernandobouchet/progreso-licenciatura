@@ -2,7 +2,7 @@ import { Divider } from '@/components/ui/divider';
 import BackButton from '@/components/coursePages/backButton';
 
 interface Props {
-  course: Course | null;
+  course: CourseData | null;
 }
 
 const CoursePageContainer = ({ course }: Props) => {

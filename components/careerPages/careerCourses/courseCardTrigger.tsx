@@ -6,7 +6,7 @@ import { CourseCard } from '@/components/careerPages/careerCourses/courseCard';
 import { CourseCardForm } from '@/components/careerPages/careerCourses/coursesForms/courseCardForm';
 
 interface Props {
-  course: careerDataCourse;
+  course: CourseData;
   careerId: number;
 }
 

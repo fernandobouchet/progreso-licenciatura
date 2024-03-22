@@ -17,7 +17,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { UseFormReturn } from 'react-hook-form';
 
 interface Props {
-  course: careerDataCourse;
+  course: CourseData;
   form: UseFormReturn<
     {
       status: keyof typeof CourseStatus;

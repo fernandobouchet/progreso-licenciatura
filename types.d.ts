@@ -6,51 +6,41 @@ enum CourseStatus {
 }
 
 type CareerData = {
-  name: string;
   id: number;
-  periods: {
-    id: number;
-    order: number;
-    courses: careerDataCourse[];
-  }[];
+  name: string;
+  periods: PeriodData[];
 } | null;
 
-type careerDataCourse = {
+type CourseData = {
   id: number;
   name: string;
+  order?: number | null;
+  area?: string | null;
+  description?: string | null;
+  hsWeekly?: number | null;
+  hsTotal?: number | null;
   progress?:
     | {
         id: string;
         courseId: number;
         userId: string;
-        status: keyof typeof CourseStatus;
+        status: $Enums.CourseStatus;
         qualification: number | null;
       }[]
     | undefined;
+  periods?: Period[];
 };
 
-type Course = {
+type PeriodData = {
   id: number;
-  order: number?;
-  name: string;
-  area: string?;
-  description: string?;
-  hsWeekly: Number?;
-  hsTotal: Number?;
-  hasCorrelatives?: Boolean;
-  hasOptatives?: Boolean;
-  hasEquivalents?: Boolean;
-  periods: Period[];
-  progress?: {
-    status: keyof typeof CourseStatus;
-    qualification: number | null;
-  }[];
+  order: number;
+  courses: CourseData[];
 };
 
-type Period = {
-  id: Number;
-  order: Number;
-  careerID: Number;
-  courses?: Course[];
-  career: Career;
+type CareerProgress = {
+  TOTAL: number;
+  APROBADA: Course[];
+  PENDIENTE: Course[];
+  REGULARIZADA: Course[];
+  CURSANDO: Course[];
 };

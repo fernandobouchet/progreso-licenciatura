@@ -18,7 +18,7 @@ interface Props {
     },
     any
   >;
-  course: careerDataCourse;
+  course: CourseData;
   careerId: number;
 }
 
@@ -98,8 +98,8 @@ const CourseForm = ({ form, course, careerId }: Props) => {
         className="flex flex-col justify-center items-center w-full space-y-6"
       >
         <div className="flex w-full justify-evenly">
-          <QualificationSelectFormField course={course} form={form} />
           <StatusSelectFormField course={course} form={form} />
+          <QualificationSelectFormField course={course} form={form} />
         </div>
         <div className="flex w-full">
           <Link href={`/asignatura/${course.id}`}>

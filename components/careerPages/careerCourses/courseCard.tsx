@@ -2,7 +2,7 @@ import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { CourseStatusChip } from '@/components/careerPages/careerCourses/courseStatusChip';
 
 interface Props {
-  course: careerDataCourse;
+  course: CourseData;
 }
 
 const CourseCard = ({ course }: Props) => {
