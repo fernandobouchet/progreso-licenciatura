@@ -10,4 +10,53 @@ const capitalizeFirstLetter = (word: string) => {
   return capitalizedWord;
 };
 
-export { formatPeriodOrder, capitalizeFirstLetter };
+const getCoursesProgress = (career: CareerData) => {
+  const coursesProgress: CareerProgress = {
+    TOTAL: 0,
+    APROBADA: [],
+    PENDIENTE: [],
+    REGULARIZADA: [],
+    CURSANDO: [],
+  };
+
+  for (const period of career!.periods) {
+    for (const course of period.courses) {
+      const progressStatus: CourseStatus = course?.progress
+        ? course?.progress[0]?.status
+        : 'PENDIENTE';
+      coursesProgress.TOTAL += 1;
+      if (!progressStatus) {
+        coursesProgress.PENDIENTE.push(course);
+      } else {
+        coursesProgress[progressStatus].push(course);
+      }
+    }
+  }
+
+  return coursesProgress;
+};
+
+const getCareerAverageQualification = (courses: CourseData[]) => {
+  let qualificationSum = 0;
+
+  for (const course of courses) {
+    if (course.progress)
+      for (const status of course.progress) {
+        if (status.qualification) {
+          qualificationSum += status.qualification;
+        }
+      }
+  }
+  const averageQualification = (qualificationSum / courses.length).toPrecision(
+    2
+  );
+
+  return averageQualification;
+};
+
+export {
+  formatPeriodOrder,
+  capitalizeFirstLetter,
+  getCoursesProgress,
+  getCareerAverageQualification,
+};
