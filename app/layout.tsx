@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { TRPCReactProvider } from '@/trpc/react';
 import { Navigation } from '@/components/navigation/navigation';
 import { Toaster } from '@/components/ui/sonner';
+import AuthProvider from '@/providers/AuthProvider';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -34,17 +35,19 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TRPCReactProvider>
-            <Navigation>{children}</Navigation>
-            <Toaster richColors />
-          </TRPCReactProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TRPCReactProvider>
+              <Navigation>{children}</Navigation>
+              <Toaster richColors />
+            </TRPCReactProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
