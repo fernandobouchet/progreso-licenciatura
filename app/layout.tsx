@@ -5,6 +5,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { TRPCReactProvider } from '@/trpc/react';
 import { Navigation } from '@/components/navigation/navigation';
+import { Toaster } from '@/components/ui/sonner';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -41,6 +42,7 @@ export default function RootLayout({
         >
           <TRPCReactProvider>
             <Navigation>{children}</Navigation>
+            <Toaster />
           </TRPCReactProvider>
         </ThemeProvider>
       </body>
