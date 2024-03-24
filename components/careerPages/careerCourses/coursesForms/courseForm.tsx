@@ -1,8 +1,6 @@
 import * as z from 'zod';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-
-import { DialogClose } from '@radix-ui/react-dialog';
 import { FormSchema } from '@/components/careerPages/careerCourses/coursesForms/courseCardForm';
 import { UseFormReturn } from 'react-hook-form';
 import { QualificationSelectFormField } from '@/components/careerPages/careerCourses/coursesForms/qualificationSelectFormField';
@@ -10,6 +8,7 @@ import { StatusSelectFormField } from '@/components/careerPages/careerCourses/co
 import Link from 'next/link';
 import { api } from '@/trpc/react';
 import { toast } from 'sonner';
+import { CourseSaveButton } from '@/components/careerPages/careerCourses/coursesForms/courseSaveButton';
 
 interface Props {
   form: UseFormReturn<
@@ -109,16 +108,7 @@ const CourseForm = ({ form, course, careerId }: Props) => {
           <Link href={`/asignatura/${course.id}`}>
             <Button>Más info</Button>
           </Link>
-          <DialogClose asChild>
-            <Button
-              variant="default"
-              disabled={disableSendButton}
-              type="submit"
-              className="ml-auto"
-            >
-              Guardar
-            </Button>
-          </DialogClose>
+          <CourseSaveButton disableSendButton={disableSendButton} />
         </div>
       </form>
     </Form>

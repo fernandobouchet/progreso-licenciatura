@@ -46,7 +46,13 @@ const QualificationSelectFormField = ({ form, course }: Props) => {
           >
             <FormControl className="border-none bg-accent hover:bg-accent/80">
               <SelectTrigger className="text-left">
-                <SelectValue placeholder="Aún sin calificar" />
+                <SelectValue
+                  placeholder={
+                    form.watch('status') !== 'APROBADA'
+                      ? 'Aún sin aprobar'
+                      : 'Aún sin calificar'
+                  }
+                />
               </SelectTrigger>
             </FormControl>
             <SelectContent className="border-none">
