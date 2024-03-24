@@ -42,7 +42,7 @@ export default function RootLayout({
         >
           <TRPCReactProvider>
             <Navigation>{children}</Navigation>
-            <Toaster />
+            <Toaster richColors />
           </TRPCReactProvider>
         </ThemeProvider>
       </body>

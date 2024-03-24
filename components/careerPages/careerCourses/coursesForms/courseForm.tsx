@@ -9,6 +9,7 @@ import { QualificationSelectFormField } from '@/components/careerPages/careerCou
 import { StatusSelectFormField } from '@/components/careerPages/careerCourses/coursesForms/statusSelectFormField';
 import Link from 'next/link';
 import { api } from '@/trpc/react';
+import { toast } from 'sonner';
 
 interface Props {
   form: UseFormReturn<
@@ -59,6 +60,9 @@ const CourseForm = ({ form, course, careerId }: Props) => {
       utils.careers.getByIdWithUser.setData(
         { id: careerId },
         context?.previousCareerData
+      );
+      toast.error(
+        `Se ha producido un error al intentar modificar la asignatura ${course.name}. Por favor, inténtelo nuevamente.`
       );
       console.log(err);
     },
