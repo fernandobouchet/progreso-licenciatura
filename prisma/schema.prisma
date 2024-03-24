@@ -79,13 +79,37 @@ model Course {
   description     String?
   hsWeekly        Int?
   hsTotal         Int?
-  hasCorrelatives Boolean  @default(false)
-  hasOptatives    Boolean  @default(false)
-  hasEquivalents  Boolean  @default(false)
+  correlatives    CourseCorrelatives[]
+  optatives       CourseOptatives[]
+  equivalents     CourseEquivalents[]
   progress        UserCourse[]
   periods         Period[]
 
   @@unique([name])
+}
+
+model CourseCorrelatives {
+  id               String       @id @default(cuid())
+  courseId         Int
+  course           Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId])
+}
+
+model CourseOptatives {
+  id               String       @id @default(cuid())
+  courseId         Int
+  course           Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId])
+}
+
+model CourseEquivalents {
+  id               String       @id @default(cuid())
+  courseId         Int
+  course           Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId])
 }
 
 model UserCourse {
