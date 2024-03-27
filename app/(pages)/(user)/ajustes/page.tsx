@@ -1,4 +1,4 @@
-import SettingsPageContainer from '@/components/settings/settingsPageContainer';
+import SettingsPageContainer from "@/components/settings/settingsPageContainer";
 
 const Ajustespage = () => {
   return <SettingsPageContainer />;
