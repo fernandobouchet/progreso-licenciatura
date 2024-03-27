@@ -60,10 +60,7 @@ const extraItems = [
 interface Props {
   onOpenChange?: (open: boolean) => void;
   initialData:
-  | {
-    careerId: number;
-  }[]
-  | null;
+  { careerId: number; }[] | null | undefined;
 }
 
 const NavItems = ({ onOpenChange, initialData }: Props) => {

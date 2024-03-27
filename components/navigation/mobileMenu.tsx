@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { SideBarNavItems } from '@/components/navigation/sideBarNavItems';
+import { SideBarNavItemsMobile } from '@/components/navigation/sideBarNavItemsMobile';
 import { Icons } from '@/components/icons';
 import { useState } from 'react';
 
@@ -20,7 +20,7 @@ export function MobileMenu() {
           side={'left'}
           className="bg-background-secondary h-screen flex flex-col gap-0 border-none pt-20 rounded-r-lg px-2"
         >
-          <SideBarNavItems onOpenChange={setOpen} />
+          <SideBarNavItemsMobile onOpenChange={setOpen} />
         </SheetContent>
       </Sheet>
     </div>

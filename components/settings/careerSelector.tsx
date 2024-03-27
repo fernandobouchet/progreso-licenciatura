@@ -128,8 +128,7 @@ const CareerSelector = ({ selectorInitialData }: Props) => {
               <div className="mb-4">
                 <FormLabel className="text-base">Carreras a mostrar</FormLabel>
                 <FormDescription>
-                  Selecciona las carreras de las que quieres realizar el
-                  seguimiento de tu progreso.
+                  Selecciona las carreras que quieras visualizar.
                 </FormDescription>
               </div>
               {items.map((item) => (
