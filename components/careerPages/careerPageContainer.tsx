@@ -1,7 +1,7 @@
 import { Divider } from '@/components/ui/divider';
 import { getServerAuthSession } from '@/lib/auth';
 import { api } from '@/trpc/server';
-import { CareerPageWrapper } from './careerPageWrapper';
+import { CareerPageWrapper } from '@/components/careerPages/careerPageWrapper';
 
 interface Props {
   careerId: number;
@@ -37,7 +37,7 @@ const CareerPageContainer = async ({ careerId }: Props) => {
   return (
     <div className="flex flex-col items-center w-full">
       <Divider />
-      <CareerPageWrapper career={careerData} session={session} />
+      <CareerPageWrapper career={careerData} session={session !== null} />
     </div>
   );
 };

@@ -1,19 +1,18 @@
 'use client';
 import { api } from '@/trpc/react';
-import { Session } from 'next-auth';
 import { ProgressBar } from '@/components/ui/progressBar';
 import { PeriodsTab } from '@/components/careerPages/careerPeriods/periodsTab';
 
 interface Props {
   career: CareerData;
-  session: Session | null;
+  session: boolean;
 }
 
 const CareerPageWrapper = ({ career, session }: Props) => {
-  let careerData: CareerData | null = null;
+  let careerData: CareerData = null;
 
   if (session && career) {
-    careerData = api.careers.getByIdWithUser.useQuery(
+    const { data } = api.careers.getByIdWithUser.useQuery(
       { id: career.id },
       {
         // TODO: Fix types
@@ -22,9 +21,10 @@ const CareerPageWrapper = ({ career, session }: Props) => {
         refetchOnMount: false,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
-        staleTime: 5000,
+        staleTime: Infinity,
       }
-    ).data;
+    );
+    careerData = data;
   } else {
     careerData = career;
   }
