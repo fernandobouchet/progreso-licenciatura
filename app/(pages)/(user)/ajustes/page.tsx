@@ -1,4 +1,6 @@
+import SettingsPageContainer from '@/components/settings/settingsPageContainer';
+
 const Ajustespage = () => {
-  return <div>Ajustespage</div>;
+  return <SettingsPageContainer />;
 };
 export default Ajustespage;
