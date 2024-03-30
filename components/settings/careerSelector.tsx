@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, FieldError } from 'react-hook-form';
-import * as z from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, FieldError } from "react-hook-form";
+import * as z from "zod";
 
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -14,40 +14,40 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { toast } from 'sonner';
-import { api } from '@/trpc/react';
+} from "@/components/ui/form";
+import { toast } from "sonner";
+import { api } from "@/trpc/react";
 
 const items = [
   {
-    id: '1',
-    label: 'Licenciatura en informática',
+    id: "1",
+    label: "Licenciatura en informática",
   },
   {
-    id: '2',
-    label: 'Tecnicatura en informática',
+    id: "2",
+    label: "Tecnicatura en informática",
   },
   {
-    id: '3',
-    label: 'Tecnicatura en programación',
+    id: "3",
+    label: "Tecnicatura en programación",
   },
   {
-    id: '4',
-    label: 'Tecnicatura en redes y operaciones',
+    id: "4",
+    label: "Tecnicatura en redes y operaciones",
   },
   {
-    id: '5',
-    label: 'Tecnicatura en inteligencia artificial',
+    id: "5",
+    label: "Tecnicatura en inteligencia artificial",
   },
   {
-    id: '6',
-    label: 'Tecnicatura en videojuegos',
+    id: "6",
+    label: "Tecnicatura en videojuegos",
   },
 ];
 
 const FormSchema = z.object({
   items: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: 'Debes seleccionar al menos un item.',
+    message: "Debes seleccionar al menos un item.",
   }),
 });
 
@@ -67,15 +67,14 @@ const CareerSelector = ({ selectorInitialData }: Props) => {
     staleTime: Infinity,
   });
 
-  const savedCareers = data.map((item) => item.careerId.toString())
+  const savedCareers = data.map((item) => item.careerId.toString());
 
   const userCareers = savedCareers.length >= 1 ? savedCareers : defaultCareers;
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      items:
-        userCareers,
+      items: userCareers,
     },
   });
 
@@ -144,15 +143,16 @@ const CareerSelector = ({ selectorInitialData }: Props) => {
                       >
                         <FormControl>
                           <Checkbox
+                            className="rounded-none"
                             checked={field.value?.includes(item.id)}
                             onCheckedChange={(checked) => {
                               return checked
                                 ? field.onChange([...field.value, item.id])
                                 : field.onChange(
-                                  field.value?.filter(
-                                    (value: string) => value !== item.id
-                                  )
-                                );
+                                    field.value?.filter(
+                                      (value: string) => value !== item.id
+                                    )
+                                  );
                             }}
                           />
                         </FormControl>
@@ -169,7 +169,7 @@ const CareerSelector = ({ selectorInitialData }: Props) => {
           )}
         />
         <Button
-          disabled={form.control.getFieldState('items').error !== undefined}
+          disabled={form.control.getFieldState("items").error !== undefined}
           type="submit"
         >
           Guardar
