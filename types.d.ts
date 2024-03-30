@@ -1,8 +1,8 @@
 enum CourseStatus {
-  CURSANDO = 'CURSANDO',
-  PENDIENTE = 'PENDIENTE',
-  REGULARIZADA = 'REGULARIZADA',
-  APROBADA = 'APROBADA',
+  CURSANDO = "CURSANDO",
+  PENDIENTE = "PENDIENTE",
+  REGULARIZADA = "REGULARIZADA",
+  APROBADA = "APROBADA",
 }
 
 type CareerData = {
@@ -16,7 +16,7 @@ type CourseData = {
   name: string;
   order?: number | null;
   area?: string | null;
-  description?: string | null;
+  infoUrl?: string | null;
   hsWeekly?: number | null;
   hsTotal?: number | null;
   progress?:

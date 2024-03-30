@@ -2,8 +2,8 @@ import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
-} from '@/server/trpc';
-import { z } from 'zod';
+} from "@/server/trpc";
+import { z } from "zod";
 
 export const coursesRouter = createTRPCRouter({
   getById: publicProcedure
@@ -16,7 +16,7 @@ export const coursesRouter = createTRPCRouter({
           name: true,
           order: true,
           area: true,
-          description: true,
+          infoUrl: true,
           hsTotal: true,
           hsWeekly: true,
           progress: false,
@@ -46,7 +46,7 @@ export const coursesRouter = createTRPCRouter({
           name: true,
           order: true,
           area: true,
-          description: true,
+          infoUrl: true,
           hsTotal: true,
           hsWeekly: true,
           correlatives: true,

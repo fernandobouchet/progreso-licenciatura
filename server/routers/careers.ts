@@ -2,8 +2,8 @@ import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
-} from '@/server/trpc';
-import { z } from 'zod';
+} from "@/server/trpc";
+import { z } from "zod";
 
 export const careersRouter = createTRPCRouter({
   getById: publicProcedure
@@ -15,15 +15,16 @@ export const careersRouter = createTRPCRouter({
           id: true,
           name: true,
           periods: {
-            orderBy: { order: 'asc' },
+            orderBy: { order: "asc" },
             select: {
               id: true,
               order: true,
               courses: {
-                orderBy: { order: 'asc' },
+                orderBy: { order: "asc" },
                 select: {
                   id: true,
                   name: true,
+                  infoUrl: true,
                   progress: false,
                 },
               },
@@ -42,15 +43,16 @@ export const careersRouter = createTRPCRouter({
           id: true,
           name: true,
           periods: {
-            orderBy: { order: 'asc' },
+            orderBy: { order: "asc" },
             select: {
               id: true,
               order: true,
               courses: {
-                orderBy: { order: 'asc' },
+                orderBy: { order: "asc" },
                 select: {
                   id: true,
                   name: true,
+                  infoUrl: true,
                   progress: { where: { userId: currentUserId } },
                 },
               },

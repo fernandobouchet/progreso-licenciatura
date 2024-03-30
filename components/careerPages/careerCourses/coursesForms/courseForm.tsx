@@ -1,14 +1,13 @@
-import * as z from 'zod';
-import { Form } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import { FormSchema } from '@/components/careerPages/careerCourses/coursesForms/courseCardForm';
-import { UseFormReturn } from 'react-hook-form';
-import { QualificationSelectFormField } from '@/components/careerPages/careerCourses/coursesForms/qualificationSelectFormField';
-import { StatusSelectFormField } from '@/components/careerPages/careerCourses/coursesForms/statusSelectFormField';
-import Link from 'next/link';
-import { api } from '@/trpc/react';
-import { toast } from 'sonner';
-import { CourseSaveButton } from '@/components/careerPages/careerCourses/coursesForms/courseSaveButton';
+import * as z from "zod";
+import { Form } from "@/components/ui/form";
+import { FormSchema } from "@/components/careerPages/careerCourses/coursesForms/courseCardForm";
+import { UseFormReturn } from "react-hook-form";
+import { QualificationSelectFormField } from "@/components/careerPages/careerCourses/coursesForms/qualificationSelectFormField";
+import { StatusSelectFormField } from "@/components/careerPages/careerCourses/coursesForms/statusSelectFormField";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
+import { CourseSaveButton } from "@/components/careerPages/careerCourses/coursesForms/courseSaveButton";
+import { LinkButton } from "@/components/ui/linkButton";
 
 interface Props {
   form: UseFormReturn<
@@ -71,25 +70,25 @@ const CourseForm = ({ form, course, careerId }: Props) => {
     const submitedData = {
       courseId: course.id,
       status: data.status,
-      qualification: data.status === 'APROBADA' ? data.qualification : null,
+      qualification: data.status === "APROBADA" ? data.qualification : null,
     };
     updateUserCourse.mutate({ ...submitedData });
   }
 
   const currentStatus = course?.progress?.length
     ? course?.progress[0]?.status
-    : 'PENDIENTE';
+    : "PENDIENTE";
   const currentQualification = course?.progress?.length
     ? course?.progress[0]?.qualification
     : null;
 
-  const currentSelectStatus = form.watch('status');
-  const currentSelectQualification = form.watch('qualification');
+  const currentSelectStatus = form.watch("status");
+  const currentSelectQualification = form.watch("qualification");
   const disableSendButton =
-    (currentSelectStatus !== 'APROBADA' &&
+    (currentSelectStatus !== "APROBADA" &&
       currentSelectStatus === currentStatus) ||
-    (currentSelectStatus === 'PENDIENTE' && currentStatus === undefined) ||
-    (currentSelectStatus === 'APROBADA' &&
+    (currentSelectStatus === "PENDIENTE" && currentStatus === undefined) ||
+    (currentSelectStatus === "APROBADA" &&
       (currentSelectQualification === undefined ||
         currentSelectQualification === null ||
         currentSelectQualification === currentQualification));
@@ -105,9 +104,7 @@ const CourseForm = ({ form, course, careerId }: Props) => {
           <QualificationSelectFormField course={course} form={form} />
         </div>
         <div className="flex w-full">
-          <Link href={`/asignatura/${course.id}`}>
-            <Button>Más info</Button>
-          </Link>
+          <LinkButton href={course.infoUrl!}>Más info</LinkButton>
           <CourseSaveButton disableSendButton={disableSendButton} />
         </div>
       </form>
