@@ -114,7 +114,7 @@
     @apply w-4 h-4 mr-2;
   }
   .page-container {
-    @apply bg-background w-full flex flex-col items-center h-full rounded-3xl p-3 py-8 lg:p-8 overflow-y-auto;
+    @apply bg-background w-full flex flex-col items-center h-full rounded-t-3xl lg:rounded-3xl p-3 py-8 lg:p-8 text-center overflow-y-auto;
   }
   .title {
     @apply text-2xl lg:text-3xl font-medium;
