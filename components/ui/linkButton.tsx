@@ -19,7 +19,7 @@ const LinkButton = ({ children, href }: Props) => {
       {children}
     </Link>
   ) : (
-    <Button>{children}</Button>
+    <Button disabled>{children}</Button>
   );
 };
 
