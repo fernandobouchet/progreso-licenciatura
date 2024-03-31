@@ -1,5 +1,5 @@
 const formatPeriodOrder = (order: number) => {
-  const positions = ['', '1er', '2do', '3er', '4to', '5to'];
+  const positions = ["", "1er", "2do", "3er", "4to", "5to", "6to"];
   return positions[order];
 };
 
@@ -23,7 +23,7 @@ const getCoursesProgress = (career: CareerData) => {
     for (const course of period.courses) {
       const progressStatus: CourseStatus = course?.progress
         ? course?.progress[0]?.status
-        : 'PENDIENTE';
+        : "PENDIENTE";
       coursesProgress.TOTAL += 1;
       if (!progressStatus) {
         coursesProgress.PENDIENTE.push(course);
