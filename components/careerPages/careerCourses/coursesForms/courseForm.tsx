@@ -57,7 +57,6 @@ const CourseForm = ({ form, course, careerId }: Props) => {
     onSuccess: () => {
       utils.careers.getByIdWithUser.refetch();
     },
-
     onError: (err, _newProgressData, context) => {
       utils.careers.getByIdWithUser.setData(
         { id: careerId },

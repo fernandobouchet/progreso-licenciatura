@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,10 +9,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { useSession } from 'next-auth/react';
-import { LoginButton } from '@/components/auth/loginButton';
-import { DialogClose } from '@/components/ui/dialog';
+} from "@/components/ui/alert-dialog";
+import { useSession } from "next-auth/react";
+import { LoginButton } from "@/components/auth/loginButton";
+import { DialogClose } from "@/components/ui/dialog";
 
 interface Props {
   disableSendButton: boolean;
@@ -23,7 +23,7 @@ const CourseSaveButton = ({ disableSendButton }: Props) => {
 
   return (
     <>
-      {session.status === 'authenticated' ? (
+      {session.status === "authenticated" ? (
         <DialogClose asChild>
           <Button
             variant="default"
@@ -55,7 +55,7 @@ const CourseSaveButton = ({ disableSendButton }: Props) => {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
               <AlertDialogAction asChild>
                 <LoginButton />
               </AlertDialogAction>
