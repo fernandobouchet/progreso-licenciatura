@@ -117,7 +117,7 @@ model UserCourse {
   courseId         Int
   userId           String
   qualification    Int?
-  approvalMonth    Month?
+  approvalTerm     Terms?
   approvalYear     Int?
   status           CourseStatus @default(PENDIENTE)
   course           Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -148,17 +148,8 @@ enum CourseStatus {
   APROBADA
 }
 
-enum Month {
-  ENERO
-  FEBRERO
-  MARZO
-  ABRIL
-  MAYO
-  JUNIO
-  JULIO
-  AGOSTO
-  SEPTIEMBRE
-  OCTUBRE
-  NOVIEMBRE
-  DICIEMBRE
+enum Terms {
+  VERANO
+  PRIMER_CUATRIMESTRE
+  SEGUNDO_CUATRIMESTRE
 }
