@@ -1,6 +1,6 @@
-import { createTRPCRouter, protectedProcedure } from '@/server/trpc';
-import { CourseStatus } from '@prisma/client';
-import { z } from 'zod';
+import { createTRPCRouter, protectedProcedure } from "@/server/trpc";
+import { CourseStatus, Terms } from "@prisma/client";
+import { z } from "zod";
 
 export const usersRouter = createTRPCRouter({
   updateUserCourse: protectedProcedure
@@ -9,42 +9,90 @@ export const usersRouter = createTRPCRouter({
         courseId: z.number(),
         status: z.nativeEnum(CourseStatus),
         qualification: z.number().nullable(),
+        approvalTerm: z.nativeEnum(Terms).nullable(),
+        approvalYear: z.number().min(2016).nullable(),
       })
     )
-    .mutation(async ({ input: { courseId, status, qualification }, ctx }) => {
-      const userId = ctx.session.user.id;
-      const existingCourse = await ctx.db.userCourse.findUnique({
-        where: {
-          courseId_userId: {
-            userId,
-            courseId,
-          },
-        },
-      });
-      if (existingCourse === null) {
-        await ctx.db.userCourse.create({
-          data: { userId, courseId, status, qualification },
-        });
-        return { courseId, status, qualification };
-      } else if (status === 'PENDIENTE') {
-        await ctx.db.userCourse.delete({
-          where: {
-            id: existingCourse.id,
-          },
-        });
-      } else {
-        await ctx.db.userCourse.update({
+    .mutation(
+      async ({
+        input: { courseId, status, qualification, approvalTerm, approvalYear },
+        ctx,
+      }) => {
+        const userId = ctx.session.user.id;
+        const existingCourse = await ctx.db.userCourse.findUnique({
           where: {
             courseId_userId: {
               userId,
               courseId,
             },
           },
-          data: { userId, courseId, status, qualification },
         });
-        return { courseId, status, qualification };
+        if (existingCourse === null) {
+          if (status === "APROBADA") {
+            await ctx.db.userCourse.create({
+              data: {
+                userId,
+                courseId,
+                status,
+                qualification,
+                approvalTerm,
+                approvalYear,
+              },
+            });
+          } else {
+            await ctx.db.userCourse.create({
+              data: {
+                userId,
+                courseId,
+                status,
+                qualification,
+              },
+            });
+          }
+          return {
+            courseId,
+            status,
+            qualification,
+            approvalTerm,
+            approvalYear,
+          };
+        } else if (status === "PENDIENTE") {
+          await ctx.db.userCourse.delete({
+            where: {
+              id: existingCourse.id,
+            },
+          });
+        } else if (status === "APROBADA") {
+          await ctx.db.userCourse.update({
+            where: {
+              courseId_userId: {
+                userId,
+                courseId,
+              },
+            },
+            data: {
+              userId,
+              courseId,
+              status,
+              qualification,
+              approvalTerm,
+              approvalYear,
+            },
+          });
+        } else {
+          await ctx.db.userCourse.update({
+            where: {
+              courseId_userId: {
+                userId,
+                courseId,
+              },
+            },
+            data: { userId, courseId, status, qualification },
+          });
+          return { courseId, status, qualification };
+        }
       }
-    }),
+    ),
   getUserCareers: protectedProcedure.query(({ ctx }) => {
     const userId = ctx.session.user.id;
     return ctx.db.userCareer.findMany({

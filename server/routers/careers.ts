@@ -25,7 +25,7 @@ export const careersRouter = createTRPCRouter({
                   id: true,
                   name: true,
                   infoUrl: true,
-                  progress: false,
+                  progress: true,
                 },
               },
             },
