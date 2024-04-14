@@ -1,7 +1,7 @@
-'use client';
-import { api } from '@/trpc/react';
-import { ProgressBar } from '@/components/ui/progressBar';
-import { PeriodsTab } from '@/components/careerPages/careerPeriods/periodsTab';
+"use client";
+import { api } from "@/trpc/react";
+import { ProgressBar } from "@/components/ui/progressBar";
+import { PeriodsTab } from "@/components/careerPages/careerPeriods/periodsTab";
 
 interface Props {
   career: CareerData;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const CareerPageWrapper = ({ career, session }: Props) => {
-  let careerData: CareerData = null;
+  let careerData: CareerData | null = null;
 
   if (session && career) {
     const { data } = api.careers.getByIdWithUser.useQuery(
@@ -28,11 +28,20 @@ const CareerPageWrapper = ({ career, session }: Props) => {
   } else {
     careerData = career;
   }
+
+  if (!careerData) {
+    return (
+      <h2 className="mt-10">
+        Hubo un error al obtener la información. Por favor, inténtelo
+        nuevamente.
+      </h2>
+    );
+  }
   return (
     <>
       <ProgressBar career={careerData} />
       <h2 className="subtitle">
-        {careerData?.id === 1 ? 'Año' : 'Cuatrimestre'}
+        {careerData?.id === 1 ? "Año" : "Cuatrimestre"}
       </h2>
       <PeriodsTab career={careerData} />
     </>

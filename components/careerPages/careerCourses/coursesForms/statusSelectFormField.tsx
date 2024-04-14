@@ -1,48 +1,41 @@
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { UseFormReturn } from 'react-hook-form';
+} from "@/components/ui/select";
+import { ProgressFormReturn } from "@/components/careerPages/careerCourses/coursesForms/courseCardForm";
 
 interface Props {
-  course: CourseData;
-  form: UseFormReturn<
-    {
-      status: keyof typeof CourseStatus;
-      qualification: number | null;
-    },
-    any
-  >;
+  courseProgress: CourseProgress;
+  form: ProgressFormReturn;
 }
 
-const StatusSelectFormField = ({ form, course }: Props) => {
+const StatusSelectFormField = ({ form, courseProgress }: Props) => {
   return (
     <FormField
       control={form.control}
       name="status"
       render={({ field }) => (
-        <FormItem className="w-[35%]">
+        <FormItem>
           <FormLabel>Estado</FormLabel>
           <Select
             onValueChange={field.onChange}
             defaultValue={
-              course?.progress?.length
-                ? course?.progress[0]?.status.toString()
-                : 'PENDIENTE'
+              courseProgress?.status
+                ? courseProgress.status.toString()
+                : "PENDIENTE"
             }
           >
-            <FormControl className="border-none bg-accent hover:bg-accent/80">
+            <FormControl className="border-none bg-accent hover:bg-accent/80 w-28 lg:w-36">
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -54,7 +47,6 @@ const StatusSelectFormField = ({ form, course }: Props) => {
               <SelectItem value="REGULARIZADA">Regularizada</SelectItem>
             </SelectContent>
           </Select>
-          <FormDescription>Estado de la materia.</FormDescription>
           <FormMessage />
         </FormItem>
       )}

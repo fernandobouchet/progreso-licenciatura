@@ -1,7 +1,7 @@
-import { Divider } from '@/components/ui/divider';
-import { getServerAuthSession } from '@/lib/auth';
-import { api } from '@/trpc/server';
-import { CareerPageWrapper } from '@/components/careerPages/careerPageWrapper';
+import { Divider } from "@/components/ui/divider";
+import { getServerAuthSession } from "@/lib/auth";
+import { api } from "@/trpc/server";
+import { CareerPageWrapper } from "@/components/careerPages/careerPageWrapper";
 
 interface Props {
   careerId: number;

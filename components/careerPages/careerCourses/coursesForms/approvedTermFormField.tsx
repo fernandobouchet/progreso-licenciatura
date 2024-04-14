@@ -12,50 +12,54 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { ProgressFormReturn } from "@/components/careerPages/careerCourses/coursesForms/courseCardForm";
+import { Terms } from "@prisma/client";
 
 interface Props {
   courseProgress: CourseProgress;
   form: ProgressFormReturn;
 }
 
-const QualificationSelectFormField = ({ form, courseProgress }: Props) => {
+const terms = [
+  { term: "Verano", value: Terms.VERANO },
+  { term: "Primer Cuatrimestre", value: Terms.PRIMER_CUATRIMESTRE },
+  { term: "Segundo Cuatrimestre", value: Terms.SEGUNDO_CUATRIMESTRE },
+];
+
+const ApprovedTermFormField = ({ courseProgress, form }: Props) => {
   return (
     <FormField
       control={form.control}
-      name="qualification"
+      name="approvalTerm"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Calificación</FormLabel>
+          <FormLabel>Período</FormLabel>
           <Select
             disabled={form.watch("status") !== "APROBADA"}
             onValueChange={field.onChange}
             defaultValue={
-              courseProgress?.qualification
-                ? courseProgress.qualification.toString()
+              courseProgress?.approvalTerm
+                ? courseProgress.approvalTerm
                 : undefined
             }
           >
-            <FormControl className="border-none bg-accent hover:bg-accent/80 w-28 lg:w-36">
+            <FormControl className="border-none bg-accent hover:bg-accent/80 w-32 lg:w-36">
               <SelectTrigger className="[&>span]:line-clamp-none [&>span]:text-left [&>span]:truncate">
                 <SelectValue
                   placeholder={
                     form.watch("status") !== "APROBADA"
                       ? "Aún sin aprobar"
-                      : "Aún sin calificar"
+                      : "Aún sin definir"
                   }
                 />
               </SelectTrigger>
             </FormControl>
             <SelectContent className="border-none">
-              <ScrollArea className="h-[150px] rounded-md">
-                {[4, 5, 6, 7, 8, 9, 10].map((value) => (
-                  <SelectItem key={value} value={value.toString()}>
-                    {value.toString()}
-                  </SelectItem>
-                ))}
-              </ScrollArea>
+              {terms.map((period) => (
+                <SelectItem key={period.value} value={period.value}>
+                  {period.term}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <FormMessage />
@@ -65,4 +69,4 @@ const QualificationSelectFormField = ({ form, courseProgress }: Props) => {
   );
 };
 
-export { QualificationSelectFormField };
+export { ApprovedTermFormField };

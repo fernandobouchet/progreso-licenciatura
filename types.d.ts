@@ -5,30 +5,23 @@ enum CourseStatus {
   APROBADA = "APROBADA",
 }
 
+enum Terms {
+  VERANO = "VERANO",
+  PRIMER_CUATRIMESTRE = "PRIMER_CUATRIMESTRE",
+  SEGUNDO_CUATRIMESTRE = "SEGUNDO_CUATRIMESTRE",
+}
+
 type CareerData = {
   id: number;
   name: string;
   periods: PeriodData[];
-} | null;
+};
 
 type CourseData = {
   id: number;
   name: string;
-  order?: number | null;
-  area?: string | null;
-  infoUrl?: string | null;
-  hsWeekly?: number | null;
-  hsTotal?: number | null;
-  progress?:
-    | {
-        id: string;
-        courseId: number;
-        userId: string;
-        status: $Enums.CourseStatus;
-        qualification: number | null;
-      }[]
-    | undefined;
-  periods?: Period[];
+  infoUrl: string | null;
+  progress: CourseProgress[];
 };
 
 type PeriodData = {
@@ -37,10 +30,27 @@ type PeriodData = {
   courses: CourseData[];
 };
 
+type CourseProgress = {
+  id: string;
+  courseId: number;
+  userId: string;
+  qualification: number | null;
+  approvalTerm: keyof typeof Terms | null;
+  approvalYear: number | null;
+  status: keyof typeof CourseStatus;
+} | null;
+
 type CareerProgress = {
   TOTAL: number;
   APROBADA: Course[];
   PENDIENTE: Course[];
   REGULARIZADA: Course[];
   CURSANDO: Course[];
+};
+
+type ProgressForm = {
+  status: keyof typeof CourseStatus;
+  qualification: number | null;
+  approvalTerm: keyof typeof Terms | null;
+  approvalYear: number | null;
 };

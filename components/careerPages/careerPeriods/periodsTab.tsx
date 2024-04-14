@@ -1,7 +1,7 @@
-'use client';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { formatPeriodOrder } from '@/lib/functions';
-import { CourseCardTrigger } from '@/components/careerPages/careerCourses/courseCardTrigger';
+"use client";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { formatPeriodOrder } from "@/lib/functions";
+import { CourseCardTrigger } from "@/components/careerPages/careerCourses/courseCardTrigger";
 
 interface Props {
   career: CareerData;
@@ -9,7 +9,7 @@ interface Props {
 
 const PeriodsTab = ({ career }: Props) => {
   return (
-    <Tabs defaultValue={'1'} className="w-full">
+    <Tabs defaultValue={"1"} className="w-full">
       <TabsList className="flex w-full p-0 h-14 border-none rounded-full shadow-sm bg-card">
         {career?.periods?.map((period) => (
           <TabsTrigger
@@ -28,7 +28,7 @@ const PeriodsTab = ({ career }: Props) => {
               <CourseCardTrigger
                 key={course.id}
                 course={course}
-                careerId={career!.id}
+                careerId={career.id}
               />
             ))}
           </div>

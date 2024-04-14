@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useSession } from "next-auth/react";
 import { LoginButton } from "@/components/auth/loginButton";
-import { DialogClose } from "@/components/ui/dialog";
 
 interface Props {
   disableSendButton: boolean;
@@ -24,16 +23,14 @@ const CourseSaveButton = ({ disableSendButton }: Props) => {
   return (
     <>
       {session.status === "authenticated" ? (
-        <DialogClose asChild>
-          <Button
-            variant="default"
-            disabled={disableSendButton}
-            type="submit"
-            className="ml-auto"
-          >
-            Guardar
-          </Button>
-        </DialogClose>
+        <Button
+          variant="default"
+          disabled={disableSendButton}
+          type="submit"
+          className="ml-auto"
+        >
+          Guardar
+        </Button>
       ) : (
         <AlertDialog>
           <AlertDialogTrigger asChild>

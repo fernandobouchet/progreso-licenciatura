@@ -1,27 +1,24 @@
 import * as z from "zod";
 import { Form } from "@/components/ui/form";
 import { FormSchema } from "@/components/careerPages/careerCourses/coursesForms/courseCardForm";
-import { UseFormReturn } from "react-hook-form";
+import { ProgressFormReturn } from "@/components/careerPages/careerCourses/coursesForms/courseCardForm";
 import { QualificationSelectFormField } from "@/components/careerPages/careerCourses/coursesForms/qualificationSelectFormField";
 import { StatusSelectFormField } from "@/components/careerPages/careerCourses/coursesForms/statusSelectFormField";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { CourseSaveButton } from "@/components/careerPages/careerCourses/coursesForms/courseSaveButton";
 import { LinkButton } from "@/components/ui/linkButton";
+import { ApprovedTermFormField } from "@/components/careerPages/careerCourses/coursesForms/approvedTermFormField";
+import { ApprovedYearInputForm } from "@/components/careerPages/careerCourses/coursesForms/approvedYearInputForm";
 
 interface Props {
-  form: UseFormReturn<
-    {
-      status: keyof typeof CourseStatus;
-      qualification: number | null;
-    },
-    any
-  >;
+  form: ProgressFormReturn;
   course: CourseData;
   careerId: number;
+  handleOpen: () => void;
 }
 
-const CourseForm = ({ form, course, careerId }: Props) => {
+const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
   const utils = api.useUtils();
 
   const updateUserCourse = api.user.updateUserCourse.useMutation({
@@ -35,6 +32,8 @@ const CourseForm = ({ form, course, careerId }: Props) => {
       const progressData = {
         status: newProgressData.status,
         qualification: newProgressData.qualification,
+        approvalTerm: newProgressData.approvalTerm,
+        approvalYear: newProgressData.approvalYear,
       };
       // TODO: Fix types
       // @ts-ignore
@@ -74,40 +73,63 @@ const CourseForm = ({ form, course, careerId }: Props) => {
       courseId: course.id,
       status: data.status,
       qualification: data.status === "APROBADA" ? data.qualification : null,
+      approvalTerm: data.approvalTerm ? data.approvalTerm : null,
+      approvalYear: data.approvalYear ? data.approvalYear : null,
     };
-    updateUserCourse.mutate({ ...submitedData });
+    handleOpen();
+    updateUserCourse.mutate({
+      ...submitedData,
+    });
   }
 
-  const currentStatus = course?.progress?.length
-    ? course?.progress[0]?.status
-    : "PENDIENTE";
-  const currentQualification = course?.progress?.length
-    ? course?.progress[0]?.qualification
-    : null;
-
+  const currentStatus = course?.progress?.[0];
   const currentSelectStatus = form.watch("status");
   const currentSelectQualification = form.watch("qualification");
+  const currentSelectTerm = form.watch("approvalTerm");
+  const currentInputYear = form.watch("approvalYear");
+
   const disableSendButton =
-    (currentSelectStatus !== "APROBADA" &&
-      currentSelectStatus === currentStatus) ||
-    (currentSelectStatus === "PENDIENTE" && currentStatus === undefined) ||
-    (currentSelectStatus === "APROBADA" &&
-      (currentSelectQualification === undefined ||
-        currentSelectQualification === null ||
-        currentSelectQualification === currentQualification));
+    currentSelectStatus === "APROBADA"
+      ? (!currentSelectQualification ||
+          Number(currentSelectQualification) ===
+            currentStatus?.qualification) &&
+        (!currentSelectTerm ||
+          currentSelectTerm === undefined ||
+          currentSelectTerm === currentStatus?.approvalTerm) &&
+        (!currentInputYear ||
+          currentInputYear === undefined ||
+          currentInputYear === currentStatus?.approvalYear)
+      : currentSelectStatus === currentStatus?.status ||
+        currentStatus === undefined;
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-center items-center w-full space-y-6"
+        className="flex flex-col justify-around items-center h-full w-full lg:gap-8"
       >
-        <div className="flex w-full justify-evenly">
-          <StatusSelectFormField course={course} form={form} />
-          <QualificationSelectFormField course={course} form={form} />
+        <div className="flex flex-col gap-5 justify-around w-full">
+          <StatusSelectFormField
+            courseProgress={course.progress[0]}
+            form={form}
+          />
+          <div className="flex justify-between">
+            <QualificationSelectFormField
+              courseProgress={course.progress[0]}
+              form={form}
+            />
+            <ApprovedTermFormField
+              courseProgress={course.progress[0]}
+              form={form}
+            />
+            <ApprovedYearInputForm
+              courseProgress={course.progress[0]}
+              form={form}
+            />
+          </div>
         </div>
         <div className="flex w-full">
-          <LinkButton href={course.infoUrl!}>Más info</LinkButton>
+          <LinkButton href={course.infoUrl}>Más info</LinkButton>
           <CourseSaveButton disableSendButton={disableSendButton} />
         </div>
       </form>

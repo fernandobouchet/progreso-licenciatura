@@ -1,41 +1,53 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { UseFormReturn } from "react-hook-form";
 import {
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+} from "@/components/ui/dialog";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import {
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-} from '@/components/ui/drawer';
-import { CourseForm } from '@/components/careerPages/careerCourses/coursesForms/courseForm';
-import { CourseStatus } from '@prisma/client';
+} from "@/components/ui/drawer";
+import { CourseForm } from "@/components/careerPages/careerCourses/coursesForms/courseForm";
+import { CourseStatus, Terms } from "@prisma/client";
 
 type Props = {
   course: CourseData;
   careerId: number;
+  handleOpen: () => void;
 };
 
 export const FormSchema = z.object({
   status: z.nativeEnum(CourseStatus),
-  qualification: z.coerce.number().min(0).max(10).nullable(),
+  qualification: z.coerce
+    .number()
+    .min(4, { message: "La calificación debe ser superior o igual a 4." })
+    .max(10, { message: "La calificación debe ser inferior o igual a 10." })
+    .nullable(),
+  approvalTerm: z.nativeEnum(Terms).nullable(),
+  approvalYear: z.coerce
+    .number()
+    .min(2016, { message: "El año debe ser superior a 2016." })
+    .nullable(),
 });
 
-const CourseCardForm = ({ course, careerId }: Props) => {
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+export type ProgressFormReturn = UseFormReturn<ProgressForm>;
+
+const CourseCardForm = ({ course, careerId, handleOpen }: Props) => {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const currentStatus = course?.progress?.length
     ? course?.progress[0]?.status
-    : 'PENDIENTE';
+    : "PENDIENTE";
   const currentQualification = course?.progress?.length
     ? course?.progress[0]?.qualification
     : null;
@@ -45,26 +57,20 @@ const CourseCardForm = ({ course, careerId }: Props) => {
     defaultValues: {
       status: currentStatus,
       qualification: currentQualification,
+      approvalTerm: null,
+      approvalYear: null,
     },
   });
 
   if (isDesktop) {
     return (
       <DialogContent
-        onCloseAutoFocus={() =>
-          form.reset({
-            status: currentStatus,
-            qualification: currentQualification,
-          })
-        }
+        onCloseAutoFocus={() => form.reset()}
         onInteractOutside={() => {
-          form.reset({
-            status: currentStatus,
-            qualification: currentQualification,
-          });
+          form.reset();
         }}
         asChild={false}
-        className="max-w-[calc(100dvw-1rem)] sm:max-w-[40rem] border-none rounded-2xl"
+        className="border-none rounded-2xl"
       >
         <DialogHeader>
           <DialogTitle>{course?.name}</DialogTitle>
@@ -73,27 +79,24 @@ const CourseCardForm = ({ course, careerId }: Props) => {
           </DialogDescription>
         </DialogHeader>
         <div className="flex">
-          <CourseForm form={form} course={course} careerId={careerId} />
+          <CourseForm
+            form={form}
+            course={course}
+            careerId={careerId}
+            handleOpen={handleOpen}
+          />
         </div>
       </DialogContent>
     );
   }
   return (
     <DrawerContent
-      onCloseAutoFocus={() =>
-        form.reset({
-          status: currentStatus,
-          qualification: currentQualification,
-        })
-      }
+      onCloseAutoFocus={() => form.reset()}
       onInteractOutside={() => {
-        form.reset({
-          status: currentStatus,
-          qualification: currentQualification,
-        });
+        form.reset();
       }}
       asChild={false}
-      className="border-none p-4 h-[calc(100dvh-40%)]"
+      className="border-none p-4 h-[calc(100dvh-35%)]"
     >
       <DrawerHeader>
         <DrawerTitle className="mt-4">{course?.name}</DrawerTitle>
@@ -101,9 +104,12 @@ const CourseCardForm = ({ course, careerId }: Props) => {
           Modifica el estado y/o la calificación de la materia.
         </DrawerDescription>
       </DrawerHeader>
-      <div className="flex py-4">
-        <CourseForm form={form} course={course} careerId={careerId} />
-      </div>
+      <CourseForm
+        form={form}
+        course={course}
+        careerId={careerId}
+        handleOpen={handleOpen}
+      />
     </DrawerContent>
   );
 };
