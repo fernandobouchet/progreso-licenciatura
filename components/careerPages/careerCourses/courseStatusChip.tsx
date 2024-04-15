@@ -1,30 +1,26 @@
-import { Chip } from '@/components/ui/chip';
-import { capitalizeFirstLetter } from '@/lib/functions';
+import { Chip } from "@/components/ui/chip";
+import { capitalizeFirstLetter } from "@/lib/functions";
 
 type Props = {
-  progress?:
-    | {
-        status: keyof typeof CourseStatus;
-        qualification: number | null;
-      }[]
-    | undefined;
+  progress: CourseProgress[];
 };
 
 const CourseStatusChip = ({ progress }: Props) => {
-  const normalizedStatus = progress?.length
-    ? capitalizeFirstLetter(progress[0]?.status)
-    : 'Pendiente';
+  const normalizedStatus =
+    progress?.length && progress[0]?.status
+      ? capitalizeFirstLetter(progress[0].status)
+      : "Pendiente";
 
   return (
     <Chip
       variant={
-        normalizedStatus === 'Cursando'
-          ? 'default'
-          : normalizedStatus === 'Regularizada'
-          ? 'caution'
-          : normalizedStatus === 'Aprobada'
-          ? 'success'
-          : 'muted'
+        normalizedStatus === "Cursando"
+          ? "default"
+          : normalizedStatus === "Regularizada"
+          ? "caution"
+          : normalizedStatus === "Aprobada"
+          ? "success"
+          : "muted"
       }
     >
       {normalizedStatus}
