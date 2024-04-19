@@ -1,3 +1,5 @@
+import { careers } from "./constants";
+
 const formatPeriodOrder = (order: number) => {
   const positions = ["", "1er", "2do", "3er", "4to", "5to", "6to"];
   return positions[order];
@@ -55,9 +57,14 @@ const getCareerAverageQualification = (courses: CourseData[]) => {
   return averageQualification;
 };
 
+const getCareerNameById = (id: number) => {
+  return careers.find((career) => career.id === id);
+};
+
 export {
   formatPeriodOrder,
   capitalizeFirstLetter,
   getCoursesProgress,
   getCareerAverageQualification,
+  getCareerNameById,
 };
