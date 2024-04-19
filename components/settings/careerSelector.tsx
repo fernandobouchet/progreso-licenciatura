@@ -17,36 +17,10 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { api } from "@/trpc/react";
-
-const items = [
-  {
-    id: "1",
-    label: "Licenciatura en informática",
-  },
-  {
-    id: "2",
-    label: "Tecnicatura en informática",
-  },
-  {
-    id: "3",
-    label: "Tecnicatura en programación",
-  },
-  {
-    id: "4",
-    label: "Tecnicatura en redes y operaciones",
-  },
-  {
-    id: "5",
-    label: "Tecnicatura en inteligencia artificial",
-  },
-  {
-    id: "6",
-    label: "Tecnicatura en videojuegos",
-  },
-];
+import { careers } from "@/lib/constants";
 
 const FormSchema = z.object({
-  items: z.array(z.string()).refine((value) => value.some((item) => item), {
+  items: z.array(z.number()).refine((value) => value.some((item) => item), {
     message: "Debes seleccionar al menos un item.",
   }),
 });
@@ -57,7 +31,7 @@ interface Props {
 const CareerSelector = ({ selectorInitialData }: Props) => {
   const utils = api.useUtils();
 
-  const defaultCareers = items.map((item) => item.id);
+  const defaultCareers = careers.map((item) => item.id);
 
   const { data } = api.user.getUserCareers.useQuery(undefined, {
     initialData: selectorInitialData,
@@ -67,7 +41,7 @@ const CareerSelector = ({ selectorInitialData }: Props) => {
     staleTime: Infinity,
   });
 
-  const savedCareers = data.map((item) => item.careerId.toString());
+  const savedCareers = data.map((item) => item.careerId);
 
   const userCareers = savedCareers.length >= 1 ? savedCareers : defaultCareers;
 
@@ -130,7 +104,7 @@ const CareerSelector = ({ selectorInitialData }: Props) => {
                   Selecciona las carreras que quieras visualizar.
                 </FormDescription>
               </div>
-              {items.map((item) => (
+              {careers.map((item) => (
                 <FormField
                   key={item.id}
                   control={form.control}
@@ -150,14 +124,14 @@ const CareerSelector = ({ selectorInitialData }: Props) => {
                                 ? field.onChange([...field.value, item.id])
                                 : field.onChange(
                                     field.value?.filter(
-                                      (value: string) => value !== item.id
+                                      (value) => value !== item.id
                                     )
                                   );
                             }}
                           />
                         </FormControl>
                         <FormLabel className="text-sm font-normal">
-                          {item.label}
+                          {item.title}
                         </FormLabel>
                       </FormItem>
                     );
