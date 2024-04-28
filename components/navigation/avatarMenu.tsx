@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,13 +6,13 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Icons } from '@/components/icons';
-import Link from 'next/link';
-import { LogoutButton } from '@/components/auth/logoutButton';
-import { getServerAuthSession } from '@/lib/auth';
-import { Skeleton } from '@/components/ui/skeleton';
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Icons } from "@/components/icons";
+import Link from "next/link";
+import { LogoutButton } from "@/components/auth/logoutButton";
+import { getServerAuthSession } from "@/lib/auth";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export async function AvatarMenu() {
   const session = await getServerAuthSession();
@@ -28,7 +28,7 @@ export async function AvatarMenu() {
           <Avatar className="h-8 w-8">
             <AvatarImage
               src={session?.user.image || undefined}
-              alt={session?.user.name || 'Avatar de usuario'}
+              alt={session?.user.name || "Avatar de usuario"}
             />
             <AvatarFallback>
               {session?.user.name?.slice(0, 2).toUpperCase()}
@@ -52,12 +52,6 @@ export async function AvatarMenu() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuGroup>
-          <Link href="/perfil">
-            <DropdownMenuItem className="rounded-2xl cursor-pointer">
-              <Icons.user className="icon-button" />
-              <span>Perfil</span>
-            </DropdownMenuItem>
-          </Link>
           <Link href="/ajustes">
             <DropdownMenuItem className="rounded-2xl cursor-pointer">
               <Icons.settings className="icon-button" />
