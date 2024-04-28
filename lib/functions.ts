@@ -23,10 +23,9 @@ const getCoursesProgress = (career: CareerData) => {
 
   for (const period of career.periods) {
     for (const course of period.courses) {
-      const progressStatus: keyof typeof CourseStatus =
-        course?.progress && course.progress[0]?.status
-          ? course?.progress[0]?.status
-          : "PENDIENTE";
+      const progressStatus: keyof typeof CourseStatus = course.progress?.status
+        ? course.progress.status
+        : "PENDIENTE";
       coursesProgress.TOTAL += 1;
       if (!progressStatus) {
         coursesProgress.PENDIENTE.push(course);
@@ -43,12 +42,9 @@ const getCareerAverageQualification = (courses: CourseData[]) => {
   let qualificationSum = 0;
 
   for (const course of courses) {
-    if (course.progress)
-      for (const status of course.progress) {
-        if (status && status.qualification) {
-          qualificationSum += status.qualification;
-        }
-      }
+    if (course?.progress?.qualification) {
+      qualificationSum += course.progress.qualification;
+    }
   }
   const averageQualification = (qualificationSum / courses.length).toPrecision(
     2

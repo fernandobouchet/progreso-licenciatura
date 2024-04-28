@@ -45,11 +45,9 @@ export type ProgressFormReturn = UseFormReturn<ProgressForm>;
 const CourseCardForm = ({ course, careerId, handleOpen }: Props) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const currentStatus = course?.progress?.length
-    ? course?.progress[0]?.status
-    : "PENDIENTE";
-  const currentQualification = course?.progress?.length
-    ? course?.progress[0]?.qualification
+  const currentStatus = course?.progress ? course.progress.status : "PENDIENTE";
+  const currentQualification = course?.progress
+    ? course.progress.qualification
     : null;
 
   const form = useForm<z.infer<typeof FormSchema>>({

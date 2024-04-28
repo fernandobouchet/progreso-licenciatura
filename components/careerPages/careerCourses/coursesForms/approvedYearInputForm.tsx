@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { ProgressFormReturn } from "@/components/careerPages/careerCourses/coursesForms/courseCardForm";
 
 interface Props {
-  courseProgress: CourseProgress;
+  courseProgress?: CourseProgress;
   form: ProgressFormReturn;
 }
 

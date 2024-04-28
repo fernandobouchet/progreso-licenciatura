@@ -16,7 +16,7 @@ import { ProgressFormReturn } from "@/components/careerPages/careerCourses/cours
 import { Terms } from "@prisma/client";
 
 interface Props {
-  courseProgress: CourseProgress;
+  courseProgress?: CourseProgress;
   form: ProgressFormReturn;
 }
 

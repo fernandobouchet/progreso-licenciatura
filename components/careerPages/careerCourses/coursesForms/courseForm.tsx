@@ -41,14 +41,16 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
         if (!oldData) {
           return null;
         }
-        const updatedPeriods = oldData.periods.map((cachedPeriod) => ({
-          ...cachedPeriod,
-          courses: cachedPeriod.courses.map((cachedCourse) =>
-            cachedCourse.id === newProgressData.courseId
-              ? { ...cachedCourse, progress: [progressData] }
-              : cachedCourse
-          ),
-        }));
+        const updatedPeriods = oldData.periods.map(
+          (cachedPeriod: PeriodData) => ({
+            ...cachedPeriod,
+            courses: cachedPeriod.courses.map((cachedCourse) =>
+              cachedCourse.id === newProgressData.courseId
+                ? { ...cachedCourse, progress: [progressData] }
+                : cachedCourse
+            ),
+          })
+        );
         return { ...oldData, periods: updatedPeriods };
       });
       return { previousCareerData };
@@ -82,7 +84,7 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
     });
   }
 
-  const currentStatus = course?.progress?.[0];
+  const currentStatus = course?.progress;
   const currentSelectStatus = form.watch("status");
   const currentSelectQualification = form.watch("qualification");
   const currentSelectTerm = form.watch("approvalTerm");
@@ -110,20 +112,20 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
       >
         <div className="flex flex-col gap-5 justify-around w-full">
           <StatusSelectFormField
-            courseProgress={course.progress[0]}
+            courseProgress={course?.progress}
             form={form}
           />
           <div className="flex justify-between">
             <QualificationSelectFormField
-              courseProgress={course.progress[0]}
+              courseProgress={course?.progress}
               form={form}
             />
             <ApprovedTermFormField
-              courseProgress={course.progress[0]}
+              courseProgress={course?.progress}
               form={form}
             />
             <ApprovedYearInputForm
-              courseProgress={course.progress[0]}
+              courseProgress={course?.progress}
               form={form}
             />
           </div>

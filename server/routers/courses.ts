@@ -9,7 +9,7 @@ export const coursesRouter = createTRPCRouter({
   getById: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ input: { id }, ctx }) => {
-      return ctx.db.course.findUnique({
+      return await ctx.db.course.findUnique({
         where: { id },
         select: {
           id: true,
@@ -39,7 +39,7 @@ export const coursesRouter = createTRPCRouter({
     .input(z.object({ id: z.number() }))
     .query(async ({ input: { id }, ctx }) => {
       const currentUserId = ctx.session.user.id;
-      return ctx.db.course.findUnique({
+      return await ctx.db.course.findUnique({
         where: { id },
         select: {
           id: true,

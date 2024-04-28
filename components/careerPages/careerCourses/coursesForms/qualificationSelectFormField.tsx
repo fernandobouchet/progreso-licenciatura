@@ -16,7 +16,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ProgressFormReturn } from "@/components/careerPages/careerCourses/coursesForms/courseCardForm";
 
 interface Props {
-  courseProgress: CourseProgress;
+  courseProgress?: CourseProgress;
   form: ProgressFormReturn;
 }
 

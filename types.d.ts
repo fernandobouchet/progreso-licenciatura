@@ -21,7 +21,7 @@ type CourseData = {
   id: number;
   name: string;
   infoUrl: string | null;
-  progress: CourseProgress[];
+  progress?: CourseProgress;
 };
 
 type PeriodData = {
