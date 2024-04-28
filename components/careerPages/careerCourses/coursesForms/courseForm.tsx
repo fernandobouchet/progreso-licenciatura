@@ -111,11 +111,11 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
         className="flex flex-col justify-around items-center h-full w-full lg:gap-8"
       >
         <div className="flex flex-col gap-5 justify-around w-full">
-          <StatusSelectFormField
-            courseProgress={course?.progress}
-            form={form}
-          />
-          <div className="flex justify-between">
+          <div className="grid grid-cols-2 gap-4 gap-x-14 lg:gap-x-24 mx-auto py-4">
+            <StatusSelectFormField
+              courseProgress={course?.progress}
+              form={form}
+            />
             <QualificationSelectFormField
               courseProgress={course?.progress}
               form={form}

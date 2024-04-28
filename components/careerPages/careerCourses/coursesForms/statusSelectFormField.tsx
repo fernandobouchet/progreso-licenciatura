@@ -35,8 +35,8 @@ const StatusSelectFormField = ({ form, courseProgress }: Props) => {
                 : "PENDIENTE"
             }
           >
-            <FormControl className="border-none bg-accent hover:bg-accent/80 w-28 lg:w-36">
-              <SelectTrigger>
+            <FormControl className="border-none bg-accent hover:bg-accent/80">
+              <SelectTrigger className="w-32">
                 <SelectValue />
               </SelectTrigger>
             </FormControl>

@@ -37,8 +37,8 @@ const QualificationSelectFormField = ({ form, courseProgress }: Props) => {
                 : undefined
             }
           >
-            <FormControl className="border-none bg-accent hover:bg-accent/80 w-28 lg:w-36">
-              <SelectTrigger className="[&>span]:line-clamp-none [&>span]:text-left [&>span]:truncate">
+            <FormControl className="border-none bg-accent hover:bg-accent/80">
+              <SelectTrigger className="[&>span]:line-clamp-none [&>span]:text-left [&>span]:truncate w-32">
                 <SelectValue
                   placeholder={
                     form.watch("status") !== "APROBADA"

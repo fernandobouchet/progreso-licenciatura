@@ -25,7 +25,7 @@ const ApprovedYearInputForm = ({ form, courseProgress }: Props) => {
             <Input
               disabled={form.watch("status") !== "APROBADA"}
               onChange={field.onChange}
-              className="w-24 text-center border-none bg-accent text-accent-foreground"
+              className="w-32 text-center border-none bg-accent text-accent-foreground"
               type="number"
               inputMode="numeric"
               min={2016}
