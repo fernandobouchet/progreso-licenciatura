@@ -1,24 +1,24 @@
-import type { Metadata } from 'next';
-import { Open_Sans as FontSans } from 'next/font/google';
-import { ThemeProvider } from '@/providers/ThemeProvider';
-import './globals.css';
-import { cn } from '@/lib/utils';
-import { TRPCReactProvider } from '@/trpc/react';
-import { Navigation } from '@/components/navigation/navigation';
-import { Toaster } from '@/components/ui/sonner';
-import AuthProvider from '@/providers/AuthProvider';
+import type { Metadata } from "next";
+import { Open_Sans as FontSans } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+import "./globals.css";
+import { cn } from "@/lib/utils";
+import { TRPCReactProvider } from "@/trpc/react";
+import { Navigation } from "@/components/navigation/navigation";
+import { Toaster } from "@/components/ui/sonner";
+import AuthProvider from "@/providers/AuthProvider";
 
 const fontSans = FontSans({
-  subsets: ['latin'],
-  variable: '--font-sans',
+  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
-  title: 'Progreso Licenciatura Informática',
+  title: "Progreso Licenciatura Informática",
   description:
-    'Aplicación web para controlar fácilmente tu progreso académico, registrando tus calificaciones y avances.',
+    "Aplicación web para controlar fácilmente tu progreso académico, registrando tus calificaciones y avances.",
   icons: {
-    icon: '/logo-unahur.webp', // /public path
+    icon: "/logo-unahur.webp", // /public path
   },
 };
 
@@ -31,14 +31,14 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
         <AuthProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >
