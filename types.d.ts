@@ -5,12 +5,6 @@ enum CourseStatus {
   APROBADA = "APROBADA",
 }
 
-enum Terms {
-  VERANO = "VERANO",
-  PRIMER_CUATRIMESTRE = "PRIMER_CUATRIMESTRE",
-  SEGUNDO_CUATRIMESTRE = "SEGUNDO_CUATRIMESTRE",
-}
-
 type CareerData = {
   id: number;
   name: string;
@@ -35,7 +29,6 @@ type CourseProgress = {
   courseId: number;
   userId: string;
   qualification: number | null;
-  approvalTerm: keyof typeof Terms | null;
   approvalYear: number | null;
   status: keyof typeof CourseStatus;
 } | null;
@@ -51,6 +44,5 @@ type CareerProgress = {
 type ProgressForm = {
   status: keyof typeof CourseStatus;
   qualification: number | null;
-  approvalTerm: keyof typeof Terms | null;
   approvalYear: number | null;
 };

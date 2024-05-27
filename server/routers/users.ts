@@ -1,5 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/trpc";
-import { CourseStatus, Terms } from "@prisma/client";
+import { CourseStatus } from "@prisma/client";
 import { z } from "zod";
 
 export const usersRouter = createTRPCRouter({
@@ -9,13 +9,12 @@ export const usersRouter = createTRPCRouter({
         courseId: z.number(),
         status: z.nativeEnum(CourseStatus),
         qualification: z.number().nullable(),
-        approvalTerm: z.nativeEnum(Terms).nullable(),
         approvalYear: z.number().min(2016).nullable(),
       })
     )
     .mutation(
       async ({
-        input: { courseId, status, qualification, approvalTerm, approvalYear },
+        input: { courseId, status, qualification, approvalYear },
         ctx,
       }) => {
         const userId = ctx.session.user.id;
@@ -35,7 +34,6 @@ export const usersRouter = createTRPCRouter({
                 courseId,
                 status,
                 qualification,
-                approvalTerm,
                 approvalYear,
               },
             });
@@ -53,7 +51,6 @@ export const usersRouter = createTRPCRouter({
             courseId,
             status,
             qualification,
-            approvalTerm,
             approvalYear,
           };
         } else if (status === "PENDIENTE") {
@@ -75,7 +72,6 @@ export const usersRouter = createTRPCRouter({
               courseId,
               status,
               qualification,
-              approvalTerm,
               approvalYear,
             },
           });
