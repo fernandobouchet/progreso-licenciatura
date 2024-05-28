@@ -8,8 +8,7 @@ import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { CourseSaveButton } from "@/components/careerPages/careerCourses/coursesForms/courseSaveButton";
 import { LinkButton } from "@/components/ui/linkButton";
-import { ApprovedTermFormField } from "@/components/careerPages/careerCourses/coursesForms/approvedTermFormField";
-import { ApprovedYearInputForm } from "@/components/careerPages/careerCourses/coursesForms/approvedYearInputForm";
+import { ApprovedYearSelectFormField } from "@/components/careerPages/careerCourses/coursesForms/approvedYearSelectFormField";
 
 interface Props {
   form: ProgressFormReturn;
@@ -32,7 +31,6 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
       const progressData = {
         status: newProgressData.status,
         qualification: newProgressData.qualification,
-        approvalTerm: newProgressData.approvalTerm,
         approvalYear: newProgressData.approvalYear,
       };
       // TODO: Fix types
@@ -75,8 +73,7 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
       courseId: course.id,
       status: data.status,
       qualification: data.status === "APROBADA" ? data.qualification : null,
-      approvalTerm: data.approvalTerm ? data.approvalTerm : null,
-      approvalYear: data.approvalYear ? data.approvalYear : null,
+      approvalYear: data.status === "APROBADA" ? data.approvalYear : null,
     };
     handleOpen();
     updateUserCourse.mutate({
@@ -87,7 +84,6 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
   const currentStatus = course?.progress;
   const currentSelectStatus = form.watch("status");
   const currentSelectQualification = form.watch("qualification");
-  const currentSelectTerm = form.watch("approvalTerm");
   const currentInputYear = form.watch("approvalYear");
 
   const disableSendButton =
@@ -95,9 +91,6 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
       ? (!currentSelectQualification ||
           Number(currentSelectQualification) ===
             currentStatus?.qualification) &&
-        (!currentSelectTerm ||
-          currentSelectTerm === undefined ||
-          currentSelectTerm === currentStatus?.approvalTerm) &&
         (!currentInputYear ||
           currentInputYear === undefined ||
           currentInputYear === currentStatus?.approvalYear)
@@ -108,29 +101,20 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-around items-center h-full w-full lg:gap-8"
+        className="flex flex-col justify-around items-center h-full w-full"
       >
-        <div className="flex flex-col gap-5 justify-around w-full">
-          <div className="grid grid-cols-2 gap-4 gap-x-14 lg:gap-x-24 mx-auto py-4">
-            <StatusSelectFormField
-              courseProgress={course?.progress}
-              form={form}
-            />
-            <QualificationSelectFormField
-              courseProgress={course?.progress}
-              form={form}
-            />
-            <ApprovedTermFormField
-              courseProgress={course?.progress}
-              form={form}
-            />
-            <ApprovedYearInputForm
-              courseProgress={course?.progress}
-              form={form}
-            />
-          </div>
+        <div className="flex justify-around w-full">
+          <StatusSelectFormField
+            courseProgress={course?.progress}
+            form={form}
+          />
+          <QualificationSelectFormField
+            courseProgress={course?.progress}
+            form={form}
+          />
+          <ApprovedYearSelectFormField form={form} />
         </div>
-        <div className="flex w-full">
+        <div className="flex w-full mt-auto">
           <LinkButton href={course.infoUrl}>Más info</LinkButton>
           <CourseSaveButton disableSendButton={disableSendButton} />
         </div>

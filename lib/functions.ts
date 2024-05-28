@@ -57,10 +57,23 @@ const getCareerNameById = (id: number) => {
   return careers.find((career) => career.id === id);
 };
 
+const getAvaileableSelectYears = () => {
+  const currentYear = new Date().getFullYear();
+
+  const availeableYears = [];
+
+  for (let i = 2016; i < currentYear + 1; i++) {
+    availeableYears.push(i);
+  }
+
+  return availeableYears;
+};
+
 export {
   formatPeriodOrder,
   capitalizeFirstLetter,
   getCoursesProgress,
   getCareerAverageQualification,
   getCareerNameById,
+  getAvaileableSelectYears,
 };

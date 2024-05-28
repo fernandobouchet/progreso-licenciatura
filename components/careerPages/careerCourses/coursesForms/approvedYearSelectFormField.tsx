@@ -5,6 +5,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ProgressFormReturn } from "@/components/careerPages/careerCourses/coursesForms/courseCardForm";
 import {
   Select,
   SelectContent,
@@ -12,27 +13,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ProgressFormReturn } from "@/components/careerPages/careerCourses/coursesForms/courseCardForm";
+import { getAvaileableSelectYears } from "@/lib/functions";
 
 interface Props {
   courseProgress?: CourseProgress;
   form: ProgressFormReturn;
 }
 
-const QualificationSelectFormField = ({ form, courseProgress }: Props) => {
+const selectYears = getAvaileableSelectYears();
+
+const ApprovedYearSelectFormField = ({ form, courseProgress }: Props) => {
   return (
     <FormField
       control={form.control}
-      name="qualification"
+      name="approvalYear"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Calificación</FormLabel>
+          <FormLabel>Año</FormLabel>
           <Select
             disabled={form.watch("status") !== "APROBADA"}
             onValueChange={field.onChange}
             defaultValue={
-              courseProgress?.qualification
-                ? courseProgress.qualification.toString()
+              courseProgress?.approvalYear
+                ? courseProgress.approvalYear.toString()
                 : undefined
             }
           >
@@ -42,12 +45,8 @@ const QualificationSelectFormField = ({ form, courseProgress }: Props) => {
               </SelectTrigger>
             </FormControl>
             <SelectContent className="border-none max-h-36 min-w-0">
-              {[4, 5, 6, 7, 8, 9, 10].map((value) => (
-                <SelectItem
-                  key={value}
-                  value={value.toString()}
-                  className="mx-auto text-center w-full"
-                >
+              {selectYears.map((value) => (
+                <SelectItem key={value} value={value.toString()}>
                   {value.toString()}
                 </SelectItem>
               ))}
@@ -60,4 +59,4 @@ const QualificationSelectFormField = ({ form, courseProgress }: Props) => {
   );
 };
 
-export { QualificationSelectFormField };
+export { ApprovedYearSelectFormField };

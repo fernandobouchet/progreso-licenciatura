@@ -83,9 +83,9 @@ export const usersRouter = createTRPCRouter({
                 courseId,
               },
             },
-            data: { userId, courseId, status, qualification },
+            data: { userId, courseId, status, qualification, approvalYear },
           });
-          return { courseId, status, qualification };
+          return { courseId, status, qualification, approvalYear };
         }
       }
     ),
