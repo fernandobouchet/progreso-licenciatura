@@ -44,7 +44,7 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
             ...cachedPeriod,
             courses: cachedPeriod.courses.map((cachedCourse) =>
               cachedCourse.id === newProgressData.courseId
-                ? { ...cachedCourse, progress: [progressData] }
+                ? { ...cachedCourse, progress: progressData }
                 : cachedCourse
             ),
           })
