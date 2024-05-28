@@ -112,7 +112,10 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
             courseProgress={course?.progress}
             form={form}
           />
-          <ApprovedYearSelectFormField form={form} />
+          <ApprovedYearSelectFormField
+            courseProgress={course?.progress}
+            form={form}
+          />
         </div>
         <div className="flex w-full mt-auto">
           <LinkButton href={course.infoUrl}>Más info</LinkButton>
