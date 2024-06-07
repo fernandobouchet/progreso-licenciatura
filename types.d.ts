@@ -35,10 +35,10 @@ type CourseProgress = {
 
 type CareerProgress = {
   TOTAL: number;
-  APROBADA: Course[];
-  PENDIENTE: Course[];
-  REGULARIZADA: Course[];
-  CURSANDO: Course[];
+  APROBADA: CourseData[];
+  PENDIENTE: CourseData[];
+  REGULARIZADA: CourseData[];
+  CURSANDO: CourseData[];
 };
 
 type ProgressForm = {
