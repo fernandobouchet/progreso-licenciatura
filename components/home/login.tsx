@@ -9,9 +9,9 @@ const Login = async () => {
         ¡Bienvenido a progreso de carrera informática!
       </h2>
       <p className="text-center">
-        Aquí puedes controlar fácilmente tu progreso académico al registrar tus
-        calificaciones y el estado de tu cursada, además de acceder a
-        estadísticas sobre tu rendimiento y avances en la carrera.
+        Aquí puedes controlar fácilmente tu progreso académico registrando tus
+        calificaciones y el estado de tu cursada, para tener una rápida visión
+        de los avances en tu carrera.
       </p>
       <p className="text-center">
         Para almacenar tu progreso y ofrecerte una experiencia personalizada, te

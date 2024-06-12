@@ -9,7 +9,6 @@ export default async function Home() {
     <>
       {session ? (
         <>
-          <h1 className="title">Inicio</h1>
           <Dashboard />
         </>
       ) : (
