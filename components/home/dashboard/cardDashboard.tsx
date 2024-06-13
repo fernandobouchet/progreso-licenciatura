@@ -1,25 +1,15 @@
-"use client";
-
-import { api } from "@/trpc/react";
 import { getCareerNameById, getCoursesProgress } from "@/lib/functions";
 import { CardsDashboardCoursesStatus } from "@/components/home/dashboard/cardsDashboardCoursesStatus";
 import { Divider } from "@/components/ui/divider";
 import { ProgressBarSimple } from "@/components/ui/progressBarSimple";
+import { api } from "@/trpc/server";
 
 interface Props {
   careerId: number;
 }
 
-const CardDashboard = ({ careerId }: Props) => {
-  const { data } = api.careers.getByIdWithUser.useQuery(
-    { id: careerId },
-    {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
-    }
-  );
+const CardDashboard = async ({ careerId }: Props) => {
+  const data = await api.careers.getByIdWithUser({ id: careerId });
 
   if (!data) {
     return;
