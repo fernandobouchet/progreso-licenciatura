@@ -8,16 +8,18 @@ const Dashboard = async () => {
 
   return (
     <>
-      <div className="w-full text-start pt-5 text-base lg:text-lg">
-        <p>Bienvenido, {session?.user.name}!</p>
+      <div className="flex flex-col gap-2 w-full text-start text-base lg:text-lg">
+        <p className="font-semibold">Bienvenido, {session?.user.name}!</p>
         <p>
           Actualmente estas registrado en {careers.length}{" "}
           {careers.length > 1 ? "carreras" : "carrera"}:
         </p>
       </div>
-      {careers.map((career) => (
-        <CardDashboard key={career.careerId} careerId={career.careerId} />
-      ))}
+      <div className="h-full w-full flex flex-col mt-6">
+        {careers.map((career) => (
+          <CardDashboard key={career.careerId} careerId={career.careerId} />
+        ))}
+      </div>
     </>
   );
 };

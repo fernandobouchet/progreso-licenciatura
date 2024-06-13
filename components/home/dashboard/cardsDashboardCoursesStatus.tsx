@@ -4,28 +4,28 @@ interface Props {
 
 const CardsDashboardCoursesStatus = ({ progress }: Props) => {
   return (
-    <div className="grid gap-4 grid-cols-2 lg:gap-8 lg:grid-cols-4">
+    <div className="grid gap-4 grid-cols-2 lg:grid-cols-4 text-sm lg:text-base">
       <div className="border-none flex flex-col justify-center gap-2 font-semibold">
-        <h2 className="mx-auto text-lg lg:text-xl">Aprobadas</h2>
-        <span className="text-xl lg:text-2xl font-bold text-success">
+        <h2 className="mx-auto">Aprobadas</h2>
+        <span className="font-bold text-success">
           {progress.APROBADA.length}
         </span>
       </div>
       <div className="border-none flex flex-col justify-center gap-2 font-semibold">
-        <h2 className="mx-auto text-lg lg:text-xl">Cursando</h2>
-        <span className="text-xl lg:text-2xl font-bold text-default">
+        <h2 className="mx-auto">Cursando</h2>
+        <span className="font-bold text-default">
           {progress.CURSANDO.length}
         </span>
       </div>
       <div className="border-none flex flex-col justify-center gap-2 font-semibold">
-        <h2 className="mx-auto text-lg lg:text-xl">Regularizadas</h2>
-        <span className="text-xl lg:text-2xl font-bold text-caution">
+        <h2 className="mx-auto">Regularizadas</h2>
+        <span className="font-bold text-caution">
           {progress.REGULARIZADA.length}
         </span>
       </div>
       <div className="border-none flex flex-col justify-center gap-2 font-semibold">
-        <h2 className="mx-auto text-lg lg:text-xl">Pendientes</h2>
-        <span className="text-xl lg:text-2xl font-bold text-muted-foreground">
+        <h2 className="mx-auto">Pendientes</h2>
+        <span className="font-bold text-muted-foreground">
           {progress.PENDIENTE.length}
         </span>
       </div>
