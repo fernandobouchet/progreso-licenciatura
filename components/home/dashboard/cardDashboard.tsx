@@ -23,23 +23,18 @@ const CardDashboard = async ({ careerId }: Props) => {
   ).toFixed(0);
 
   return (
-    <>
-      <section className="flex flex-col items-center w-full p-8 bg-card rounded-lg">
-        <h2 className="text-base lg:text-lg font-semibold pb-5">
-          {careerName?.title}
-        </h2>
-        <div className="w-full flex justify-center">
-          <CardsDashboardCoursesStatus progress={progress} />
-        </div>
-        <div className="w-full pt-4 font-semibold text-start text-sm lg:text-base">
-          <h2>Progreso:</h2>
-          <ProgressBarSimple percentage={percentage} />
-        </div>
-      </section>
-      <div className="mx-auto last:hidden">
-        <Divider />
+    <section className="flex flex-col items-center w-full p-8 bg-card rounded-lg max-w-lg">
+      <h2 className="text-base lg:text-lg font-semibold pb-5">
+        {careerName?.title}
+      </h2>
+      <div className="w-full flex justify-center">
+        <CardsDashboardCoursesStatus progress={progress} />
       </div>
-    </>
+      <div className="w-full pt-4 font-semibold text-start text-sm lg:text-base">
+        <h2>Progreso:</h2>
+        <ProgressBarSimple percentage={percentage} />
+      </div>
+    </section>
   );
 };
 

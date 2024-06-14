@@ -15,7 +15,7 @@ const Dashboard = async () => {
           {careers.length > 1 ? "carreras" : "carrera"}:
         </p>
       </div>
-      <div className="h-full w-full flex flex-col mt-6">
+      <div className="w-full flex flex-col md:flex-row md:justify-around gap-4 mt-6">
         {careers.map((career) => (
           <CardDashboard key={career.careerId} careerId={career.careerId} />
         ))}
