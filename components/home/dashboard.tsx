@@ -9,7 +9,9 @@ const Dashboard = async () => {
   return (
     <>
       <div className="flex flex-col gap-2 w-full text-start text-base lg:text-lg">
-        <p className="font-semibold">Bienvenido, {session?.user.name}!</p>
+        <p className="font-semibold">
+          Bienvenido, {session?.user.name?.split(" ").slice(0, 1)}!
+        </p>
         <p>
           Actualmente estas registrado en {careers.length}{" "}
           {careers.length > 1 ? "carreras" : "carrera"}:
