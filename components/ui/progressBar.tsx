@@ -1,6 +1,5 @@
-import { getCoursesProgress } from '@/lib/functions';
-import { Chip } from '@/components/ui/chip';
-import { AverageQualificationCard } from '@/components/ui/averageQualificationCard';
+import { getCoursesProgress } from "@/lib/functions";
+import { Chip } from "@/components/ui/chip";
 
 interface Props {
   career: CareerData;
@@ -142,7 +141,6 @@ const ProgressBar = ({ career }: Props) => {
             <span className="text-xs">Pendientes</span>
           </div>
         </div>
-        <AverageQualificationCard courses={progress.APROBADA} />
       </div>
     </div>
   );
