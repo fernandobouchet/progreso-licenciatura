@@ -8,7 +8,6 @@ import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { CourseSaveButton } from "@/components/careerPages/careerCourses/coursesForms/courseSaveButton";
 import { LinkButton } from "@/components/ui/linkButton";
-import { ApprovedYearSelectFormField } from "@/components/careerPages/careerCourses/coursesForms/approvedYearSelectFormField";
 
 interface Props {
   form: ProgressFormReturn;
@@ -31,7 +30,6 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
       const progressData = {
         status: newProgressData.status,
         qualification: newProgressData.qualification,
-        approvalYear: newProgressData.approvalYear,
       };
       // TODO: Fix types
       // @ts-ignore
@@ -73,7 +71,6 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
       courseId: course.id,
       status: data.status,
       qualification: data.status === "APROBADA" ? data.qualification : null,
-      approvalYear: data.status === "APROBADA" ? data.approvalYear : null,
     };
     handleOpen();
     updateUserCourse.mutate({
@@ -84,16 +81,11 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
   const currentStatus = course?.progress;
   const currentSelectStatus = form.watch("status");
   const currentSelectQualification = form.watch("qualification");
-  const currentInputYear = form.watch("approvalYear");
 
   const disableSendButton =
     currentSelectStatus === "APROBADA"
-      ? (!currentSelectQualification ||
-          Number(currentSelectQualification) ===
-            currentStatus?.qualification) &&
-        (!currentInputYear ||
-          currentInputYear === undefined ||
-          currentInputYear === currentStatus?.approvalYear)
+      ? !currentSelectQualification ||
+        Number(currentSelectQualification) === currentStatus?.qualification
       : currentSelectStatus === currentStatus?.status ||
         currentStatus === undefined;
 
@@ -109,10 +101,6 @@ const CourseForm = ({ form, course, careerId, handleOpen }: Props) => {
             form={form}
           />
           <QualificationSelectFormField
-            courseProgress={course?.progress}
-            form={form}
-          />
-          <ApprovedYearSelectFormField
             courseProgress={course?.progress}
             form={form}
           />

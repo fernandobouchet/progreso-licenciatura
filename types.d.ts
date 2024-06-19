@@ -29,7 +29,6 @@ type CourseProgress = {
   courseId: number;
   userId: string;
   qualification: number | null;
-  approvalYear: number | null;
   status: keyof typeof CourseStatus;
 } | null;
 
@@ -44,5 +43,4 @@ type CareerProgress = {
 type ProgressForm = {
   status: keyof typeof CourseStatus;
   qualification: number | null;
-  approvalYear: number | null;
 };

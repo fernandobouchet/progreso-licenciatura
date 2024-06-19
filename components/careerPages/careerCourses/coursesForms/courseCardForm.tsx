@@ -33,13 +33,6 @@ export const FormSchema = z.object({
     .min(4, { message: "La calificación debe ser superior o igual a 4." })
     .max(10, { message: "La calificación debe ser inferior o igual a 10." })
     .nullable(),
-  approvalYear: z.coerce
-    .number({
-      required_error:
-        "La fecha aproximada de aprobación de la materia es requerida.",
-    })
-    .min(2016)
-    .nullable(),
 });
 
 export type ProgressFormReturn = UseFormReturn<ProgressForm>;
@@ -57,7 +50,6 @@ const CourseCardForm = ({ course, careerId, handleOpen }: Props) => {
     defaultValues: {
       status: currentStatus,
       qualification: currentQualification,
-      approvalYear: null,
     },
   });
 
