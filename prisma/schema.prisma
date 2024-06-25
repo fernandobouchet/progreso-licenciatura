@@ -14,12 +14,12 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?      @unique
   emailVerified DateTime?
   image         String?
-  role          Role      @default(USER)
+  role          Role         @default(USER)
   accounts      Account[]
   sessions      Session[]
   courses       UserCourse[]
@@ -53,85 +53,94 @@ model Session {
 }
 
 model Career {
-  id      Int      @id
-  name    String
-  periods Period[]
-  users   UserCareer[]
+  id                   Int                 @id
+  name                 String
+  periods              Period[]
+  users                UserCareer[]
+  CourseCorrelatives   CourseCorrelatives? @relation(fields: [courseCorrelativesId], references: [id])
+  courseCorrelativesId String?
+  CourseOptatives      CourseOptatives?    @relation(fields: [courseOptativesId], references: [id])
+  courseOptativesId    String?
+  CourseEquivalents    CourseEquivalents?  @relation(fields: [courseEquivalentsId], references: [id])
+  courseEquivalentsId  String?
 
-@@unique([name])
+  @@unique([name])
 }
 
 model Period {
-  id         Int     @id
-  order      Int
-  careerID   Int
-  courses    Course[]
-  career     Career  @relation(fields: [careerID], references: [id], onDelete: Cascade)
+  id       Int      @id
+  order    Int
+  careerID Int
+  courses  Course[]
+  career   Career   @relation(fields: [careerID], references: [id], onDelete: Cascade)
 
   @@unique([order, careerID])
 }
 
 model Course {
-  id              Int      @id
-  order           Int
-  name            String
-  infoUrl         String?
-  area            String?
-  hsWeekly        Int?
-  hsTotal         Int?
-  correlatives    CourseCorrelatives[]
-  optatives       CourseOptatives[]
-  equivalents     CourseEquivalents[]
-  progress        UserCourse[]
-  periods         Period[]
+  id           Int                  @id
+  order        Int
+  name         String
+  infoUrl      String?
+  area         String?
+  hsWeekly     Int?
+  hsTotal      Int?
+  correlatives CourseCorrelatives[]
+  optatives    CourseOptatives[]
+  equivalents  CourseEquivalents[]
+  progress     UserCourse[]
+  periods      Period[]
 
   @@unique([name])
 }
 
 model CourseCorrelatives {
-  id               String       @id @default(cuid())
-  courseId         Int
-  course           Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  id       String   @id @default(cuid())
+  courseId Int
+  careerId Career[]
+  course   Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([courseId])
 }
 
 model CourseOptatives {
-  id               String       @id @default(cuid())
-  courseId         Int
-  course           Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  id       String   @id @default(cuid())
+  courseId Int
+  careerId Career[]
+  course   Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([courseId])
 }
 
 model CourseEquivalents {
-  id               String       @id @default(cuid())
-  courseId         Int
-  course           Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  id       String   @id @default(cuid())
+  courseId Int
+  careerId Career[]
+  course   Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@unique([courseId])
 }
 
 model UserCourse {
-  id               String       @id @default(cuid())
-  courseId         Int
-  userId           String
-  qualification    Int?
-  status           CourseStatus @default(PENDIENTE)
-  course           Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            String       @id @default(cuid())
+  courseId      Int
+  userId        String
+  qualification Int?
+  status        CourseStatus @default(PENDIENTE)
+  course        Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([courseId, userId])
 }
 
 model UserCareer {
-  id         String   @id @default(cuid())
-  careerId   Int
-  userId     String
-  career     Career   @relation(fields: [careerId], references: [id], onDelete: Cascade)
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id       String @id @default(cuid())
+  careerId Int
+  userId   String
+  career   Career @relation(fields: [careerId], references: [id], onDelete: Cascade)
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([ careerId, userId])
+  @@unique([careerId, userId])
 }
 
 enum Role {
