@@ -6,6 +6,7 @@ export const coursesData = [
     area: "CB",
     hsWeekly: 8,
     hsTotal: 128,
+    infoUrl: "https://informaticaunahur.github.io/750",
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const coursesData = [
     area: "AyL",
     hsWeekly: 8,
     hsTotal: 128,
+    infoUrl: "https://informaticaunahur.github.io/767",
   },
   {
     id: 3,
